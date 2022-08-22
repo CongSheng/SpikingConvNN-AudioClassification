@@ -1,8 +1,10 @@
 from re import L
+from urllib.response import addinfo
 import torch
 from torch import nn, optim
 import argparse
 import os
+import logging
 from torch.utils.data import DataLoader
 from tqdm import tqdm
 from utils import plotFigure
@@ -19,6 +21,14 @@ SAMPLE_RATE = 8000
 MAX_AUDIO_LENGTH = 0.8
 
 def main(args):
+    # Logging
+    logPath = args.logPath
+    if not os.path.exists(logPath):
+        open(logPath, 'a').close()
+    logging.basicConfig(filename=logPath, 
+                        level = logging.INFO, 
+                        format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+
     # Checkpoint directory
     checkpoint_path = args.chkpt_path
     if not os.path.exists(checkpoint_path):
@@ -30,7 +40,8 @@ def main(args):
         full_ds = mfcc_dataset.MFCCDataset(args.data_path, 
                                                     sample_rate=SAMPLE_RATE, 
                                                     max_length=int(SAMPLE_RATE*MAX_AUDIO_LENGTH),
-                                                    channel_in=args.channel_in)
+                                                    channel_in=args.channel_in,
+                                                    hop_length=256)
         full_ds_len = full_ds.__len__()
     
     # Split dataset and implement dataloader
@@ -54,7 +65,8 @@ def main(args):
         model = CustomCNN.customSNet(args.num_steps, 0.5).to(device)
     else:
         model = CustomCNN.customNet().to(device)
-
+    
+    # Setting up optimizers and tracking
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=0.9)
     #optimizer = optim.Adam(model.parameters(), lr=1e-2, betas=(0.9, 0.999))
@@ -62,10 +74,12 @@ def main(args):
     train_accu_hist = []
     epoch_num = args.num_epochs
     
-    
-    if args.plot_feature == 'True':
+    # Print plot feature if stated
+    addInfo = args.addInfo
+
+    if args.plot_feature == 'Y':
         sample_point, sample_label = next(iter(train_dl))
-        mfccPath = os.path.join(args.img_path, '{}_mfcc.png'.format(sample_label[0]))
+        mfccPath = os.path.join(args.img_path, '{}_mfcc{}.png'.format(sample_label[0], addInfo))
         plotFigure.plotMfcc(sample_point[0][0], mfccPath, sample_label[0])
 
     # Train
@@ -85,11 +99,11 @@ def main(args):
                                                             train_loss_hist, train_accu_hist, 
                                                             checkpoint_path, modelName)
 
-    imgPath = os.path.join(args.img_path, 'train--{}-{}.png'.format(modelName, epoch_num) )
+    imgPath = os.path.join(args.img_path, 'train--{}-{}{}.png'.format(modelName, epoch_num, addInfo))
     plotFigure.plotTrainingProgTwin(train_accu_hist, train_loss_hist, imgPath)
     
     # Test
-    if args.test=="True":
+    if args.test=="Y":
         model.eval()
         test_loss, correct = 0, 0
         with torch.no_grad():
@@ -101,9 +115,10 @@ def main(args):
                 correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
         test_loss /= test_num
         correct /= test_num
-        print(f'\nTest Error:\nacc: {(100*correct):>0.1f}%, avg loss: {test_loss:>8f}\n')
+        logMessage = f'Model:{modelName}, EpochTrained:{epoch_num}, Acc: {(100*correct):>0.1f}%, AvgLoss: {test_loss:>8f}, AddInfo: {addInfo}'
+        logging.info(logMessage)
         torch.save(model.state_dict(), os.path.join(
-        checkpoint_path, 'test-{}-{}.chkpt'.format(modelName, epoch_num)
+        checkpoint_path, 'test-{}-{}{}.chkpt'.format(modelName, epoch_num, addInfo)
     ))
 
 if __name__ == '__main__':
@@ -120,8 +135,10 @@ if __name__ == '__main__':
     parser.add_argument('--num_steps', type=int, default=10, help="Number of time steps for spiking version")
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--learning_rate', type=float, default=0.001)
-    parser.add_argument('--test', type=str, default="False")
-    parser.add_argument('--plot_feature', type=str, default="False")
+    parser.add_argument('--test', type=str, default="N")
+    parser.add_argument('--plot_feature', type=str, default="N")
+    parser.add_argument('--logPath', type=str, default='test.log', help="Directory of file to log")
+    parser.add_argument('--addInfo', type=str, default='', help="Additional info for labelling or logging")
     args = parser.parse_args()
     print(args)
     main(args)
