@@ -68,8 +68,8 @@ def main(args):
     
     # Setting up optimizers and tracking
     criterion = nn.CrossEntropyLoss()
-    optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=0.9)
-    #optimizer = optim.Adam(model.parameters(), lr=1e-2, betas=(0.9, 0.999))
+    #optimizer = optim.SGD(model.parameters(), lr=args.learning_rate, momentum=0.9)
+    optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, betas=(0.9, 0.999))
     train_loss_hist = []
     train_accu_hist = []
     epoch_num = args.num_epochs

@@ -32,7 +32,7 @@ class customSNet(nn.Module):
         #self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc1 = nn.Linear(1728, 256)
+        self.fc1 = nn.Linear(4224, 256)
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = nn.Linear(256, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
