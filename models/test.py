@@ -1,0 +1,48 @@
+import torch
+import logging
+import os
+
+def testNet(model, testDataLoader, device, 
+            lossFn, testNum, epochNum, 
+            chkPtPath, modelName, addInfo):
+    testLoss, correct = 0, 0
+    model.eval()
+    with torch.no_grad():
+        for _, (X, Y) in enumerate(testDataLoader):
+                X, Y = X.to(device), Y.to(device)
+                pred = model(X)
+                testLoss += lossFn(pred, Y).item()
+                correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
+    testLoss /= testNum
+    correct /= testNum
+    logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
+                f'Acc: {(100*correct):>0.1f}%, AvgLoss: {testLoss:>8f}, ' \
+                f'AddInfo: {addInfo}'
+    print(logMessage)
+    logging.info(logMessage)
+    torch.save(model.state_dict(), os.path.join(
+    chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
+    return
+
+def testSNet(sModel, testDataLoader, device,
+            lossFn, testNum, epochNum, 
+            chkPtPath, modelName, addInfo):
+    testLoss, correct = 0, 0
+    sModel.eval()
+    with torch.no_grad():
+        for _, (X, Y) in enumerate(testDataLoader):
+                X, Y = X.to(device), Y.to(device)      
+                test_spk, _ = sModel(X)
+                _, pred = test_spk.sum(dim=0)
+                testLoss += lossFn(pred, Y).item()
+                correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
+    testLoss /= testNum
+    correct /= testNum
+    logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
+                f'Acc: {(100*correct):>0.1f}%, AvgLoss: {testLoss:>8f}, ' \
+                f'AddInfo: {addInfo}'
+    print(logMessage)
+    logging.info(logMessage)
+    torch.save(sModel.state_dict(), os.path.join(
+    chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
+    return

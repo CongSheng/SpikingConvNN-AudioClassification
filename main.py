@@ -11,7 +11,7 @@ from utils import plotFigure
 from snntorch import surrogate
 
 from datasets import mfcc_dataset
-from models import AlexCNN, CustomCNN, train
+from models import AlexCNN, CustomCNN, train, test
 
 # Device config
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
@@ -83,12 +83,7 @@ def main(args):
         plotFigure.plotMfcc(sample_point[0][0], mfccPath, sample_label[0])
 
     # Train
-    if modelName == "AlexSCNN":
-        model, train_loss_hist, train_accu_hist = train.trainSNet(device, model_full, train_dl, 
-                                                            epoch_num, optimizer, criterion, args.num_steps,
-                                                            train_loss_hist, train_accu_hist, 
-                                                            checkpoint_path, modelName)
-    elif modelName == "CustomSCNN":
+    if modelName == "AlexSCNN" or modelName == "CustomSCNN":
         model, train_loss_hist, train_accu_hist = train.trainSNet(device, model, train_dl, 
                                                             epoch_num, optimizer, criterion, args.num_steps,
                                                             train_loss_hist, train_accu_hist, 
@@ -104,22 +99,26 @@ def main(args):
     
     # Test
     if args.test=="Y":
-        model.eval()
-        test_loss, correct = 0, 0
-        with torch.no_grad():
-            for _, (X, Y) in enumerate(test_dl):
-                X, Y = X.to(device), Y.to(device)
-                pred = model(X)
+        if modelName == "AlexSCNN" or modelName == "CustomSCNN":
+            test.testSNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo)
+        else:
+            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo)
+        # model.eval()
+        # test_loss, correct = 0, 0
+        # with torch.no_grad():
+        #     for _, (X, Y) in enumerate(test_dl):
+        #         X, Y = X.to(device), Y.to(device)
+        #         pred = model(X)
 
-                test_loss += criterion(pred, Y).item()
-                correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
-        test_loss /= test_num
-        correct /= test_num
-        logMessage = f'Model:{modelName}, EpochTrained:{epoch_num}, Acc: {(100*correct):>0.1f}%, AvgLoss: {test_loss:>8f}, AddInfo: {addInfo}'
-        logging.info(logMessage)
-        torch.save(model.state_dict(), os.path.join(
-        checkpoint_path, 'test-{}-{}{}.chkpt'.format(modelName, epoch_num, addInfo)
-    ))
+        #         test_loss += criterion(pred, Y).item()
+        #         correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
+        # test_loss /= test_num
+        # correct /= test_num
+        # logMessage = f'Model:{modelName}, EpochTrained:{epoch_num}, Acc: {(100*correct):>0.1f}%, AvgLoss: {test_loss:>8f}, AddInfo: {addInfo}'
+        # logging.info(logMessage)
+        # torch.save(model.state_dict(), os.path.join(
+        # checkpoint_path, 'test-{}-{}{}.chkpt'.format(modelName, epoch_num, addInfo))
+        #)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()

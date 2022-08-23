@@ -10,7 +10,7 @@ class customNet(nn.Module):
         self.conv1 = nn.Conv2d(1, 6, 3)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(32, 128)
+        self.fc1 = nn.Linear(160, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 10)
 
