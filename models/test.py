@@ -25,19 +25,23 @@ def testNet(model, testDataLoader, device,
     return
 
 def testSNet(sModel, testDataLoader, device,
-            lossFn, testNum, epochNum, 
+            lossFn, numSteps, testNum, epochNum, 
             chkPtPath, modelName, addInfo):
-    testLoss, correct = 0, 0
+    testLoss = torch.zeros((1), dtype=torch.float, device=device)
+    correct = 0
+    testLossHist = []
     sModel.eval()
     with torch.no_grad():
         for _, (X, Y) in enumerate(testDataLoader):
                 X, Y = X.to(device), Y.to(device)      
-                test_spk, _ = sModel(X)
-                _, pred = test_spk.sum(dim=0)
-                testLoss += lossFn(pred, Y).item()
-                correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
-    testLoss /= testNum
+                testSpk, testMem = sModel(X)
+                _, pred = testSpk.sum(dim=0).max(1)
+                for step in range(numSteps):
+                    testLoss += lossFn(testMem[step], Y)
+                testLossHist.append(testLoss.item())
+                correct += (pred==Y).type(torch.float).sum().item()
     correct /= testNum
+    testLoss = testLossHist[-1]/testNum
     logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
                 f'Acc: {(100*correct):>0.1f}%, AvgLoss: {testLoss:>8f}, ' \
                 f'AddInfo: {addInfo}'

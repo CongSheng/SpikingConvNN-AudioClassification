@@ -47,7 +47,7 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
 
             loss_val = torch.zeros((1), dtype=torch.float, device=device)
             for step in range(num_steps):
-                loss_val += loss_fn(spk_rec[step], targets)
+                loss_val += loss_fn(mem_rec[step], targets)
 
             # Gradient calculation + weight update
             optimizer.zero_grad()

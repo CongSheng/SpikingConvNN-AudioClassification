@@ -55,6 +55,7 @@ def main(args):
     print("-----Loaded-----\n")
     
     # Setting up neural net
+    spikingMode = False
     modelName = args.model_name
     if modelName=="AlexCNN":
         model = AlexCNN.AlexNet().to(device)
@@ -84,6 +85,7 @@ def main(args):
 
     # Train
     if modelName == "AlexSCNN" or modelName == "CustomSCNN":
+        spikingMode = True
         model, train_loss_hist, train_accu_hist = train.trainSNet(device, model, train_dl, 
                                                             epoch_num, optimizer, criterion, args.num_steps,
                                                             train_loss_hist, train_accu_hist, 
@@ -95,12 +97,12 @@ def main(args):
                                                             checkpoint_path, modelName)
 
     imgPath = os.path.join(args.img_path, 'train--{}-{}{}.png'.format(modelName, epoch_num, addInfo))
-    plotFigure.plotTrainingProgTwin(train_accu_hist, train_loss_hist, imgPath)
+    plotFigure.plotTrainingProgTwin(train_accu_hist, train_loss_hist, imgPath, spiking=spikingMode)
     
     # Test
     if args.test=="Y":
         if modelName == "AlexSCNN" or modelName == "CustomSCNN":
-            test.testSNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo)
+            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, checkpoint_path, modelName, addInfo)
         else:
             test.testNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo)
         # model.eval()

@@ -3,3 +3,8 @@
 2022-08-22 13:37:36,682:INFO:root:Model:CustomNet, EpochTrained:20, Acc: 99.3%, AvgLoss: 0.002879, AddInfo: -512Hop
 2022-08-23 09:25:13,615:INFO:root:Model:CustomNet, EpochTrained:25, Acc: 99.0%, AvgLoss: 0.001697, AddInfo: -256Hop
 2022-08-23 09:37:01,764:INFO:root:Model:CustomCNN, EpochTrained:25, Acc: 99.3%, AvgLoss: 0.002998, AddInfo: -512Hop
+2022-08-23 10:10:00,491:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 12.3%, AddInfo: -512Hop
+2022-08-23 10:14:24,547:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 97.3%, AddInfo: -512Hop
+2022-08-23 10:49:44,647:INFO:root:Model:CustomSCNN, EpochTrained:1, Acc: 93.0%, AddInfo: -512Hop
+2022-08-23 11:03:10,962:INFO:root:Model:CustomSCNN, EpochTrained:1, Acc: 89.0%, AvgLoss: 190.300293AddInfo: -512Hop
+2022-08-23 11:05:20,259:INFO:root:Model:CustomSCNN, EpochTrained:1, Acc: 88.3%, AvgLoss: 0.735849, AddInfo: -512Hop
