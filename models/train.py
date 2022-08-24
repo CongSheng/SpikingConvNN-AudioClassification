@@ -38,6 +38,7 @@ def trainNet(device, model, train_dl, epoch_num, optimizer, criterion,
 def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
             train_loss_hist, train_accu_hist, checkpoint_path, modelName):
     for epoch in range(epoch_num):
+        iterCount = 0
         for i, (data, targets) in enumerate(iter(train_dl)):
             data = data.to(device)
             targets = targets.to(device)
@@ -58,7 +59,8 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
             train_loss_hist.append(loss_val.item())
             acc = SF.accuracy_rate(spk_rec, targets) 
             train_accu_hist.append(acc)
-        print(f' Epoch: {epoch} | Train Loss: {train_loss_hist[-1]:.3f} | Accuracy: {train_accu_hist[-1]:.3f}')
+            iterCount +=1
+        print(f' Epoch: {epoch} | Train Loss: {train_loss_hist[-1]:.3f} | Accuracy: {train_accu_hist[-1]:.3f} | Iteration: {iterCount}')
 
     print("-----Finished Training-----")
     torch.save(model.state_dict(), os.path.join(
