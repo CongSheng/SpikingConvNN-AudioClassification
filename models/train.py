@@ -66,5 +66,5 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
     torch.save(model.state_dict(), os.path.join(
         checkpoint_path, 'train--{}-{}.chkpt'.format(modelName, epoch_num)
     ))
-    return model, train_loss_hist, train_accu_hist
+    return model, train_loss_hist, train_accu_hist, iterCount
         

@@ -1,16 +1,23 @@
 import matplotlib.pyplot as plt
 import numpy as np
 
-def plotTrainingProgTwin(hist, loss, figsaveDir, 
+def plotTrainingProgTwin(hist, loss, figsaveDir, iterCount=0, 
                         figsizeIn=(10, 5), spiking=False):
-    x_axis = np.arange(0, len(hist), 1)
     fig, ax = plt.subplots(figsize=figsizeIn)
     ax2 = ax.twinx()
-    ax.plot(x_axis, hist, 'b-o', label="Accuracy")
-    ax2.plot(x_axis, loss, 'g-o', label="Loss")
-    ax.set_xlabel('Epoch Number')
+    
     if spiking:
-        ax.set_xlabel("Iteration")
+        x_axis = np.arange(1, len(hist)/iterCount+1, 1)
+        ax.plot(x_axis, hist[::iterCount], 'b-o', label="Accuracy")
+        ax2.plot(x_axis, loss[::iterCount], 'g-o', label="Loss")
+        ax.set_xlabel("Epoch")
+    else:
+        x_axis = np.arange(1, len(hist)+1, 1)
+        ax.plot(x_axis, hist, 'b-o', label="Accuracy")
+        ax2.plot(x_axis, loss, 'g-o', label="Loss")
+        ax.set_xlabel('Epoch Number')
+    
+    
     ax.set_ylabel("Accuracy", color='b')
     ax2.set_ylabel("Loss", color='g')
     plt.tight_layout()

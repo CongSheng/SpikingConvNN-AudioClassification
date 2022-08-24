@@ -18,7 +18,7 @@ device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cp
 print(f"Using {device} :D ")
 
 SAMPLE_RATE = 8000
-MAX_AUDIO_LENGTH = 0.8
+MAX_SHAPE = (32, 32)
 
 def main(args):
     # Logging
@@ -38,10 +38,10 @@ def main(args):
     assert args.dataset_type=="mfcc", 'Invalid dataset type'
     if args.dataset_type =="mfcc":
         full_ds = mfcc_dataset.MFCCDataset(args.data_path, 
-                                                    sample_rate=SAMPLE_RATE, 
-                                                    max_length=int(SAMPLE_RATE*MAX_AUDIO_LENGTH),
+                                                    sample_rate=SAMPLE_RATE,
+                                                    max_shape = MAX_SHAPE,
                                                     channel_in=args.channel_in,
-                                                    hop_length=256)
+                                                    hop_length=512)
         full_ds_len = full_ds.__len__()
     
     # Split dataset and implement dataloader
@@ -56,6 +56,7 @@ def main(args):
     
     # Setting up neural net
     spikingMode = False
+    iterCount = 0
     modelName = args.model_name
     if modelName=="AlexCNN":
         model = AlexCNN.AlexNet().to(device)
@@ -86,7 +87,7 @@ def main(args):
     # Train
     if modelName == "AlexSCNN" or modelName == "CustomSCNN":
         spikingMode = True
-        model, train_loss_hist, train_accu_hist = train.trainSNet(device, model, train_dl, 
+        model, train_loss_hist, train_accu_hist, iterCount = train.trainSNet(device, model, train_dl, 
                                                             epoch_num, optimizer, criterion, args.num_steps,
                                                             train_loss_hist, train_accu_hist, 
                                                             checkpoint_path, modelName)
@@ -97,7 +98,7 @@ def main(args):
                                                             checkpoint_path, modelName)
 
     imgPath = os.path.join(args.img_path, 'train--{}-{}{}.png'.format(modelName, epoch_num, addInfo))
-    plotFigure.plotTrainingProgTwin(train_accu_hist, train_loss_hist, imgPath, spiking=spikingMode)
+    plotFigure.plotTrainingProgTwin(train_accu_hist, train_loss_hist, imgPath, iterCount, spiking=spikingMode)
     
     # Test
     if args.test=="Y":

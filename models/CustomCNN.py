@@ -5,12 +5,13 @@ import snntorch as snn
 from snntorch import utils as sutils
 
 class customNet(nn.Module):
+    ## Set max shape = (32, 32)
     def __init__(self):
         super().__init__()
-        self.conv1 = nn.Conv2d(1, 6, 3)
-        self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = nn.Conv2d(6, 16, 3)
-        self.fc1 = nn.Linear(160, 128)
+        self.conv1 = nn.Conv2d(1, 6, 3) # (6 ,30, 30)
+        self.pool = nn.MaxPool2d(2, 2)  # (6, 15, 15)
+        self.conv2 = nn.Conv2d(6, 16, 3) # (16, 13, 13)
+        self.fc1 = nn.Linear(576, 128)
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, 10)
 
@@ -29,12 +30,12 @@ class customSNet(nn.Module):
         self.num_steps = num_steps
         self.conv1 = nn.Conv2d(1, 6, 3)
         self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        #self.pool = nn.MaxPool2d(2, 2)
+        self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc1 = nn.Linear(4224, 256)
+        self.fc1 = nn.Linear(12544, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc2 = nn.Linear(256, 64)
+        self.fc2 = nn.Linear(128, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc3 = nn.Linear(64, 10)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
@@ -53,8 +54,10 @@ class customSNet(nn.Module):
         mem5_rec = []
 
         for step in range(self.num_steps):
+            # cur1 = self.pool(self.conv1(x))
             cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
+            # cur2 = self.pool(self.conv2(spk1))
             cur2 = self.conv2(spk1)
             spk2, mem2 = self.lif2(cur2, mem2)
             cur3 = self.fc1(spk2.view(batch_size_curr, -1))
