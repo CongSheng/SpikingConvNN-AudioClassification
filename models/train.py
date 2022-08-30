@@ -1,7 +1,6 @@
 from tqdm import tqdm
 import torch
 import os
-
 from snntorch import functional as SF
 
 def trainNet(device, model, train_dl, epoch_num, optimizer, criterion, 
@@ -10,10 +9,11 @@ def trainNet(device, model, train_dl, epoch_num, optimizer, criterion,
         running_loss = 0.0
         correct = 0
         total = 0
-        for _, (X, Y) in enumerate(train_dl):
+
+        for step, (X, Y) in enumerate(train_dl):
             X, Y = X.to(device), Y.to(device)
             optimizer.zero_grad()
-
+       
             outputs = model(X)
             loss = criterion(outputs, Y)
             loss.backward()
@@ -23,12 +23,12 @@ def trainNet(device, model, train_dl, epoch_num, optimizer, criterion,
             _, predicted = outputs.max(1)
             total += Y.size(0)
             correct += predicted.eq(Y).sum().item()
+
         train_loss = running_loss/len(train_dl)
         train_accu = 100* correct/total
         train_loss_hist.append(train_loss)
         train_accu_hist.append(train_accu)
         print(f' Epoch: {epoch} | Train Loss: {train_loss:.3f} | Accuracy: {train_accu:.3f}')
-    
     print("-----Finished Training-----")
     torch.save(model.state_dict(), os.path.join(
         checkpoint_path, 'train--{}-{}.chkpt'.format(modelName, epoch_num)
@@ -42,6 +42,7 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
         for i, (data, targets) in enumerate(iter(train_dl)):
             data = data.to(device)
             targets = targets.to(device)
+            optimizer.zero_grad()
 
             model.train()
             spk_rec, mem_rec = model(data)
@@ -51,7 +52,7 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
                 loss_val += loss_fn(mem_rec[step], targets)
 
             # Gradient calculation + weight update
-            optimizer.zero_grad()
+            
             loss_val.backward()
             optimizer.step()
 

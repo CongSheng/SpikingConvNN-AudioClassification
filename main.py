@@ -15,7 +15,7 @@ from models import AlexCNN, CustomCNN, train, test
 
 # Device config
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
-print(f"Using {device} :D ")
+print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)

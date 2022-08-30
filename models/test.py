@@ -1,6 +1,8 @@
 import torch
 import logging
 import os
+from fvcore.nn import FlopCountAnalysis
+from fvcore.nn import flop_count_table
 
 def testNet(model, testDataLoader, device, 
             lossFn, testNum, epochNum, 
@@ -13,6 +15,7 @@ def testNet(model, testDataLoader, device,
                 pred = model(X)
                 testLoss += lossFn(pred, Y).item()
                 correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
+    flops = FlopCountAnalysis(model, X)            
     testLoss /= testNum
     correct /= testNum
     logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
@@ -22,6 +25,7 @@ def testNet(model, testDataLoader, device,
     logging.info(logMessage)
     torch.save(model.state_dict(), os.path.join(
     chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
+    print(flop_count_table(flops))
     return
 
 def testSNet(sModel, testDataLoader, device,
@@ -40,6 +44,7 @@ def testSNet(sModel, testDataLoader, device,
                     testLoss += lossFn(testMem[step], Y)
                 testLossHist.append(testLoss.item())
                 correct += (pred==Y).type(torch.float).sum().item()
+    flops = FlopCountAnalysis(sModel, X)
     correct /= testNum
     testLoss = testLossHist[-1]/testNum
     logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
@@ -49,4 +54,5 @@ def testSNet(sModel, testDataLoader, device,
     logging.info(logMessage)
     torch.save(sModel.state_dict(), os.path.join(
     chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
+    print(flop_count_table(flops))
     return

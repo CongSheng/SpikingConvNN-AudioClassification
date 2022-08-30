@@ -3,9 +3,17 @@
 2022-08-24 14:11:09,774:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 78.3%, AvgLoss: 0.635414, AddInfo: -512Hop
 2022-08-24 14:18:52,515:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 99.0%, AvgLoss: 0.069972, AddInfo: -512Hop-NoPool
 2022-08-24 14:49:30,053:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 87.0%, AvgLoss: 0.380478, AddInfo: -512Hop-1Pool
-2022-08-24 14:57:33,735:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 56.7%, AvgLoss: 0.917332, AddInfo: -512Hop-1Pool
-2022-08-24 15:02:29,892:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 66.0%, AvgLoss: 0.885713, AddInfo: -512Hop-1Pool
+2022-08-24 14:57:33,735:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 56.7%, AvgLoss: 0.917332, AddInfo: -512Hop-2Pool
+2022-08-24 15:02:29,892:INFO:root:Model:CustomSCNN, EpochTrained:2, Acc: 66.0%, AvgLoss: 0.885713, AddInfo: -512Hop-2Pool
 2022-08-24 15:04:49,879:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 93.0%, AvgLoss: 0.291601, AddInfo: -512Hop-1Pool
 2022-08-24 15:06:22,138:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 92.3%, AvgLoss: 0.016093, AddInfo: -512Hop
 2022-08-24 15:17:17,426:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 64.3%, AvgLoss: 0.826797, AddInfo: -512Hop
 2022-08-24 15:23:37,624:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 97.3%, AvgLoss: 0.090039, AddInfo: -512Hop
+2022-08-25 08:56:29,671:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 92.7%, AvgLoss: 0.014326, AddInfo: -512Hop
+2022-08-25 09:10:59,102:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 93.3%, AvgLoss: 0.010863, AddInfo: -512Hop
+2022-08-26 16:47:47,227:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 98.7%, AvgLoss: 0.076493, AddInfo: -512Hop
+
+2022-08-29 15:28:17,424:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 95.3%, AvgLoss: 0.009886, AddInfo: -512Hop
+2022-08-30 14:28:05,457:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 91.3%, AvgLoss: 0.017661, AddInfo: -512Hop
+2022-08-30 14:29:36,298:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 96.7%, AvgLoss: 0.008974, AddInfo: -512Hop
+2022-08-30 14:33:16,096:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 99.0%, AvgLoss: 0.072390, AddInfo: -512Hop
