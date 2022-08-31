@@ -1,3 +1,4 @@
+import profile
 from re import L
 from urllib.response import addinfo
 import torch
@@ -19,15 +20,19 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
+HOP_LENGTH = 512
+formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 def main(args):
     # Logging
     logPath = args.logPath
+    profilePath = args.profilePath
     if not os.path.exists(logPath):
         open(logPath, 'a').close()
-    logging.basicConfig(filename=logPath, 
-                        level = logging.INFO, 
-                        format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+    if not os.path.exists(profilePath):
+        open(profilePath, 'a').close()
+    logger = setupLogger('ResultsLogger', logPath)
+    profLogger = setupLogger("ProfileLogger", profilePath)
 
     # Checkpoint directory
     checkpoint_path = args.chkpt_path
@@ -41,7 +46,7 @@ def main(args):
                                                     sample_rate=SAMPLE_RATE,
                                                     max_shape = MAX_SHAPE,
                                                     channel_in=args.channel_in,
-                                                    hop_length=512)
+                                                    hop_length=HOP_LENGTH)
         full_ds_len = full_ds.__len__()
     
     # Split dataset and implement dataloader
@@ -77,7 +82,7 @@ def main(args):
     epoch_num = args.num_epochs
     
     # Print plot feature if stated
-    addInfo = args.addInfo
+    addInfo = f"hopLen{HOP_LENGTH}"
 
     if args.plot_feature == 'Y':
         sample_point, sample_label = next(iter(train_dl))
@@ -87,6 +92,8 @@ def main(args):
     # Train
     if modelName == "AlexSCNN" or modelName == "CustomSCNN":
         spikingMode = True
+        numSteps = args.num_steps
+        addInfo = f"{addInfo}_{numSteps}Steps"
         model, train_loss_hist, train_accu_hist, iterCount = train.trainSNet(device, model, train_dl, 
                                                             epoch_num, optimizer, criterion, args.num_steps,
                                                             train_loss_hist, train_accu_hist, 
@@ -103,9 +110,9 @@ def main(args):
     # Test
     if args.test=="Y":
         if modelName == "AlexSCNN" or modelName == "CustomSCNN":
-            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, checkpoint_path, modelName, addInfo)
+            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, checkpoint_path, modelName, addInfo, logger, profLogger)
         else:
-            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo)
+            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo, logger, profLogger)
         # model.eval()
         # test_loss, correct = 0, 0
         # with torch.no_grad():
@@ -123,6 +130,14 @@ def main(args):
         # checkpoint_path, 'test-{}-{}{}.chkpt'.format(modelName, epoch_num, addInfo))
         #)
 
+def setupLogger(name, logPath, level=logging.INFO):
+    handler = logging.FileHandler(logPath)
+    handler.setFormatter(formatter)
+    logger = logging.getLogger(name)
+    logger.setLevel(level)
+    logger.addHandler(handler)
+    return logger
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', type=str, default="AlexCNN", help="name of model")
@@ -139,8 +154,8 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=float, default=0.001)
     parser.add_argument('--test', type=str, default="N")
     parser.add_argument('--plot_feature', type=str, default="N")
-    parser.add_argument('--logPath', type=str, default='test.log', help="Directory of file to log")
-    parser.add_argument('--addInfo', type=str, default='', help="Additional info for labelling or logging")
+    parser.add_argument('--logPath', type=str, default='test.log', help="Directory of file to log results")
+    parser.add_argument('--profilePath', type=str, default='flopLog.log', help="Directory of file to log profile")
     args = parser.parse_args()
     print(args)
     main(args)

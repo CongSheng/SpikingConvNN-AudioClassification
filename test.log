@@ -17,3 +17,7 @@
 2022-08-30 14:28:05,457:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 91.3%, AvgLoss: 0.017661, AddInfo: -512Hop
 2022-08-30 14:29:36,298:INFO:root:Model:CustomCNN, EpochTrained:5, Acc: 96.7%, AvgLoss: 0.008974, AddInfo: -512Hop
 2022-08-30 14:33:16,096:INFO:root:Model:CustomSCNN, EpochTrained:5, Acc: 99.0%, AvgLoss: 0.072390, AddInfo: -512Hop
+2022-08-31 10:37:51,128:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:5, Acc: 93.0%, AvgLoss: 0.014968, AddInfo: -512Hop
+2022-08-31 10:41:24,066:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:5, Acc: 97.7%, AvgLoss: 0.099961, AddInfo: -512Hop
+2022-08-31 10:48:52,721:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:5, Acc: 91.3%, AvgLoss: 0.013794, AddInfo: hopLen512
+2022-08-31 10:50:22,117:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:5, Acc: 99.0%, AvgLoss: 0.062096, AddInfo: hopLen512_10Steps
