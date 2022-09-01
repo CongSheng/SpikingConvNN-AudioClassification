@@ -16,8 +16,7 @@ def plotTrainingProgTwin(hist, loss, figsaveDir, iterCount=0,
         ax.plot(x_axis, hist, 'b-o', label="Accuracy")
         ax2.plot(x_axis, loss, 'g-o', label="Loss")
         ax.set_xlabel('Epoch Number')
-    
-    
+
     ax.set_ylabel("Accuracy", color='b')
     ax2.set_ylabel("Loss", color='g')
     plt.tight_layout()

@@ -52,7 +52,6 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
                 loss_val += loss_fn(mem_rec[step], targets)
 
             # Gradient calculation + weight update
-            
             loss_val.backward()
             optimizer.step()
 
