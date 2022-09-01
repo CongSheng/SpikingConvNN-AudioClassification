@@ -13,10 +13,10 @@ class LIFNeuron(nn.Module):
         resMem = 0.1,
         threshold = -55,
         resetMode = "subtract",
+        encodingMode = "rate",
         tensorType = torch.float32
     ) -> None:
         super(LIFNeuron, self).__init__()
-        #self.decay = decay
         self.tauMem = tauMem
         self.uRest = uRest
         self.threshold = threshold
@@ -30,13 +30,21 @@ class LIFNeuron(nn.Module):
         self.spkHist = []
         self.refCounter = torch.zeros(inputShape, dtype=tensorType, device=device)
         self.oneDecrem = torch.ones(inputShape, dtype=tensorType, device=device)
+        self.encodingMode = encodingMode
+
+    def forward(self, x):
+        for step in range(self.timeSteps):
+            self.inject(x)
+        spkHistStacked = torch.stack(self.spkHist)
+        encoded = self.spikeEncode(spkHistStacked)
+        return torch.stack(self.memHist), spkHistStacked, self.mem, encoded
 
     def fire(self):
         memDiff = self.mem - self.threshold
         spike = torch.where(memDiff >= 0, 1, 0)
         return memDiff, spike
 
-    def resetMem(self, memDiff, spk):
+    def resetMem(self, spk):
         if self.resetMode == "subtract":
             self.mem = self.mem - spk * self.threshold
         if self.resetMode == "zero":
@@ -53,21 +61,23 @@ class LIFNeuron(nn.Module):
     def inject(self, x):
         refMask = torch.where(self.refCounter>0, 0, 1 )
         refMaskInv = torch.where(self.refCounter>0, 1, 0 )
-        #self.mem = self.mem * self.decay + (1 - self.decay) * x * refMask
         self.updateMemV(x, refMask)
         memDiff, spk = self.fire()
         self.refCounter[spk==1] = self.refTime
-        self.resetMem(memDiff, spk)
+        # print(f"Membrane voltage: {self.mem}, spike: {spk} ")
         self.memHist.append(self.mem)
         self.spkHist.append(spk)
+        self.resetMem(spk)
         self.refCounter = self.refCounter - self.oneDecrem * refMaskInv
         return
 
-    def forward(self, x):
-        for step in range(self.timeSteps):
-            self.inject(x)
-            #print(self.mem)
-        return torch.stack(self.memHist), torch.stack(self.spkHist), self.mem
+    def spikeEncode(self, spkHist):
+        spkCount = torch.sum(spkHist, 0) 
+        if self.encodingMode == "rate":
+            return spkCount/self.timeSteps
+        if self.encodingMode == "count":
+            return spkCount
+    
     
     
     
