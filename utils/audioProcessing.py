@@ -1,6 +1,8 @@
 import librosa
 from librosa.effects import trim
 import numpy as np
+from scipy import signal
+import torch.nn.functional as F
 
 #TODO(CONG SHENG) Add get_MFCC into library
 def get_MFCC(x, sampling_rate, hop_length, n):
@@ -161,3 +163,64 @@ def normalize_audio(audio_signal, scale_factor=0.5):
     """
     max_amp = max(abs(audio_signal))
     return scale_factor * audio_signal/max_amp
+
+############################## Filtering ##############################
+def generateIIRFilter(sr, num_filter, order=2):
+    sos_array = []
+    freq_interval = sr // (2 * num_filter)
+    print("Freq interval: {} Hz".format(freq_interval))
+    for i in range(num_filter):
+        freq_start = freq_interval * (i)
+        freq_end = freq_interval * (i+1)
+        print("{} to {} rad/sample".format(freq_start/(sr/2), freq_end/(sr/2)))
+        if i == 0:
+            sos = signal.butter(order, 
+                                 [freq_end/(sr/2)], 
+                                 btype='lowpass',
+                                 analog=False,
+                                 output='sos')
+            sos_array.append(sos)
+        elif i == (num_filter-1):
+            sos = signal.butter(order, 
+                                 [freq_start/(sr/2)], 
+                                 btype='highpass',
+                                 analog=False,
+                                 output='sos')
+            sos_array.append(sos)
+        else:
+            sos = signal.butter(order, 
+                                [freq_start/(sr/2), freq_end/(sr/2)], 
+                                btype='bandpass',
+                                analog=False,
+                                output='sos') 
+            sos_array.append(sos)
+    return sos_array
+
+def applyFilterBank(audioSig, sosFB):
+    output = []
+    for sos in sosFB:
+        currOut = signal.sosfilt(sos, audioSig)
+        output.append(currOut)
+    output = np.vstack(output)
+    return output
+
+def filterEnergy(audioSig, sosFB, frameLen=256, hopLen=512):
+    output = []
+    for sos in sosFB:
+        out = signal.sosfilt(sos, audioSig)
+        out = librosa.feature.rms(y=out, frame_length=frameLen, hop_length=hopLen)
+        output.append(out)
+    output = np.vstack(output)
+    return output
+
+def padFeature(feature, shapeDesired, padMode='constant', valuePad=0):
+    lenFeature, widthFeature = feature.shape[0], feature.shape[1]
+    (lenGoal, widthGoal) = shapeDesired
+    assert lenFeature <= lenGoal or widthFeature <= widthGoal, "rmse too large, consider reducing n_rmse or increasing hop length"
+    rightPad = int((widthGoal - widthFeature)/2)
+    topPad = int((lenGoal - lenFeature)/2)
+    leftPad = widthGoal - widthFeature - rightPad
+    btmPad = lenGoal - lenFeature - topPad
+    padDim = (leftPad, rightPad, topPad, btmPad)
+    rmseGoal = F.pad(feature, padDim, mode=padMode, value=valuePad)
+    return rmseGoal

@@ -21,3 +21,9 @@
 2022-08-31 10:41:24,066:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:5, Acc: 97.7%, AvgLoss: 0.099961, AddInfo: -512Hop
 2022-08-31 10:48:52,721:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:5, Acc: 91.3%, AvgLoss: 0.013794, AddInfo: hopLen512
 2022-08-31 10:50:22,117:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:5, Acc: 99.0%, AvgLoss: 0.062096, AddInfo: hopLen512_10Steps
+2022-09-02 13:51:54,642:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:5, Acc: 8.3%, AvgLoss: 0.146242, AddInfo: hopLen512_rmse
+2022-09-02 13:58:18,088:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:5, Acc: 9.7%, AvgLoss: 0.145923, AddInfo: hopLen512_rmse
+2022-09-02 14:05:30,220:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:50, Acc: 84.7%, AvgLoss: 0.029936, AddInfo: hopLen512_rmse
+2022-09-02 14:09:42,083:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:50, Acc: 11.0%, AvgLoss: 1.459876, AddInfo: hopLen512_rmse_10Steps
+2022-09-02 14:13:56,864:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:50, Acc: 9.7%, AvgLoss: 1.465010, AddInfo: hopLen512_rmse_10Steps
+2022-09-02 16:46:55,115:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 77.3%, AvgLoss: 0.042589, AddInfo: hopLen64_rmse

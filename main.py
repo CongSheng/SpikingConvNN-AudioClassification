@@ -11,7 +11,7 @@ from tqdm import tqdm
 from utils import plotFigure
 from snntorch import surrogate
 
-from datasets import mfcc_dataset
+from datasets import customDataset, mfcc_dataset
 from models import AlexCNN, CustomCNN, train, test
 
 # Device config
@@ -20,7 +20,8 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
-HOP_LENGTH = 512
+HOP_LENGTH = 64
+FRAME_LENGTH = 32
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 def main(args):
@@ -40,13 +41,22 @@ def main(args):
         os.makedirs(checkpoint_path)
     
     # Init dataset
-    assert args.dataset_type=="mfcc", 'Invalid dataset type'
-    if args.dataset_type =="mfcc":
+    datasetType = args.dataset_type
+    assert datasetType=="mfcc" or datasetType=="rmse", 'Invalid dataset type'
+    if datasetType == "mfcc":
         full_ds = mfcc_dataset.MFCCDataset(args.data_path, 
-                                                    sample_rate=SAMPLE_RATE,
-                                                    max_shape = MAX_SHAPE,
-                                                    channel_in=args.channel_in,
-                                                    hop_length=HOP_LENGTH)
+                                            sample_rate=SAMPLE_RATE,
+                                            max_shape = MAX_SHAPE,
+                                            channel_in=args.channel_in,
+                                            hop_length=HOP_LENGTH)
+        full_ds_len = full_ds.__len__()
+    if datasetType == "rmse":
+        full_ds = customDataset.RMSEDataset(args.data_path,
+                                            sample_rate=SAMPLE_RATE,
+                                            max_shape = MAX_SHAPE,
+                                            channel_in = args.channel_in,
+                                            frame_length=FRAME_LENGTH,
+                                            hop_length = HOP_LENGTH)
         full_ds_len = full_ds.__len__()
     
     # Split dataset and implement dataloader
@@ -82,11 +92,11 @@ def main(args):
     epoch_num = args.num_epochs
     
     # Print plot feature if stated
-    addInfo = f"hopLen{HOP_LENGTH}"
+    addInfo = f"hopLen{HOP_LENGTH}_{datasetType}"
 
     if args.plot_feature == 'Y':
         sample_point, sample_label = next(iter(train_dl))
-        mfccPath = os.path.join(args.img_path, '{}_mfcc{}.png'.format(sample_label[0], addInfo))
+        mfccPath = os.path.join(args.img_path, '{}_{}{}.png'.format(sample_label[0], datasetType, addInfo))
         plotFigure.plotMfcc(sample_point[0][0], mfccPath, sample_label[0])
 
     # Train
