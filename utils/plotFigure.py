@@ -23,16 +23,16 @@ def plotTrainingProgTwin(hist, loss, figsaveDir, iterCount=0,
     plt.savefig(figsaveDir)
     plt.close()
 
-def plotMfcc(mfcc, figsaveDir, label=None):
+def plotFeature(feature, figsaveDir, featureName="MFCC", label=None):
     fig, ax = plt.subplots()
     #mfcc= np.swapaxes(mfcc, 0 ,1)
-    cax = ax.imshow(mfcc, interpolation='nearest', origin='lower')
+    cax = ax.imshow(feature, interpolation='nearest', origin='lower')
     fig.colorbar(cax, ax=ax, orientation='vertical')
     
     if label is None:
-        ax.set_title("MFCC")
+        ax.set_title(featureName)
     else:
-        ax.set_title("MFCC for label \"{}\"".format(label))
+        ax.set_title("{} for label \"{}\"".format(featureName, label))
     plt.tight_layout()
     plt.savefig(figsaveDir)
     plt.close()

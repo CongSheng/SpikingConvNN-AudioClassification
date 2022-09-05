@@ -20,8 +20,9 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
-HOP_LENGTH = 64
-FRAME_LENGTH = 32
+HOP_LENGTH = 160
+FRAME_LENGTH = 256
+N_MFCC = 16
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 def main(args):
@@ -48,7 +49,8 @@ def main(args):
                                             sample_rate=SAMPLE_RATE,
                                             max_shape = MAX_SHAPE,
                                             channel_in=args.channel_in,
-                                            hop_length=HOP_LENGTH)
+                                            hop_length=HOP_LENGTH, 
+                                            n_samples=N_MFCC)
         full_ds_len = full_ds.__len__()
     if datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
@@ -68,7 +70,24 @@ def main(args):
     train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
     test_dl = DataLoader(test_ds, batch_size=args.batch_size, shuffle=True)
     print("-----Loaded-----\n")
-    
+
+    if args.datasetSaveDir != "None":
+        print(f"dataset dir: {args.datasetSaveDir}")
+        savePathDS = f"{args.datasetSaveDir}/{datasetType}/"
+        trgPath = os.path.join(savePathDS, "trg/")
+        testPath = os.path.join(savePathDS, "test/")
+        print(f"Train data path: {trgPath}")
+        print(f"Test data path: {testPath}")
+        if not os.path.exists(trgPath):
+            os.makedirs(trgPath)
+        if not os.path.exists(testPath):
+            os.makedirs(testPath)
+        for i, (data, label) in enumerate((train_ds)):
+            torch.save(data, os.path.join(trgPath, f"{label}_{datasetType}_{i}.pt"))
+        for i, (data, label) in enumerate((test_ds)):
+            torch.save(data, os.path.join(testPath, f"{label}_{datasetType}_{i}.pt"))
+
+
     # Setting up neural net
     spikingMode = False
     iterCount = 0
@@ -92,12 +111,18 @@ def main(args):
     epoch_num = args.num_epochs
     
     # Print plot feature if stated
-    addInfo = f"hopLen{HOP_LENGTH}_{datasetType}"
+    if datasetType=="mfcc":
+        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
+    if datasetType == "rmse":
+        addInfo = f"hopLen{HOP_LENGTH}_frameLen{FRAME_LENGTH}_{datasetType}"
 
     if args.plot_feature == 'Y':
         sample_point, sample_label = next(iter(train_dl))
-        mfccPath = os.path.join(args.img_path, '{}_{}{}.png'.format(sample_label[0], datasetType, addInfo))
-        plotFigure.plotMfcc(sample_point[0][0], mfccPath, sample_label[0])
+        featurePath = os.path.join(args.img_path, '{}_{}{}.png'.format(sample_label[0], datasetType, addInfo))
+        plotFigure.plotFeature(sample_point[0][0], 
+                                featurePath,
+                                featureName=datasetType, 
+                                label=sample_label[0])
 
     # Train
     if modelName == "AlexSCNN" or modelName == "CustomSCNN":
@@ -152,6 +177,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--model_name', type=str, default="AlexCNN", help="name of model")
     parser.add_argument('--data_path', type=str, default="free-spoken-digit-dataset-v1.0.8/FSDD/recordings/", help="Path containing audio data")
+    parser.add_argument('--datasetSaveDir', type=str, default="None", help="Insert dataset path if you wish to save the dataset")
     parser.add_argument('--img_path', type=str, default="figures/", help="Path for plots")
     parser.add_argument('--chkpt_path', type=str, default="checkpoints/")
     parser.add_argument('--dataset_type', type=str, default="mfcc", help="Type of dataset to load")

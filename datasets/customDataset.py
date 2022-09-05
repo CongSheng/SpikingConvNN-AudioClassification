@@ -32,7 +32,7 @@ class RMSEDataset(Dataset):
                 else:
                     audio = audio[:max_length]
             rmse = audioProcessing.filterEnergy(audio, sosFB, frame_length, hop_length)
-
+            rmse = librosa.util.normalize(rmse, axis=1)
             #rmse = rmse.reshape(1, rmse.shape[0], rmse.shape[1])
             rmse = torch.from_numpy(rmse).float()
 
