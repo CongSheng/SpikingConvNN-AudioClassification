@@ -56,3 +56,19 @@ class RMSEDataset(Dataset):
         X = self.data[index]
         Y = self.labels[index]
         return [X, Y]
+
+class fetchData(Dataset):
+    def __init__(self, featurePath, channelIn=1):
+        self.featurePath = featurePath
+        self.len = len(os.listdir(featurePath))
+        self.channelIn = channelIn
+    
+    def __getitem__(self, index):
+        listFeature = os.listdir(self.featurePath)
+        singleFeatPath = os.path.join(self.featurePath, listFeature[index])
+        data = torch.load(singleFeatPath)
+        label = int(listFeature[index][0])
+        return data, label
+    
+    def __len__(self):
+        return self.len

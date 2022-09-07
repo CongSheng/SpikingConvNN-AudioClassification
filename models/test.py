@@ -6,8 +6,8 @@ from fvcore.nn import flop_count_table
 
 def testNet(model, testDataLoader, device, 
             lossFn, testNum, epochNum, 
-            chkPtPath, modelName, addInfo,
-            testLogger, profLogger):
+            modelName, addInfo,
+            testLogger, chkPtPath=None, profLogger=None):
     testLoss, correct = 0, 0
     model.eval()
     with torch.no_grad():
@@ -16,18 +16,20 @@ def testNet(model, testDataLoader, device,
                 pred = model(X)
                 testLoss += lossFn(pred, Y).item()
                 correct += (pred.argmax(1)==Y).type(torch.float).sum().item()
-    flops = FlopCountAnalysis(model, X)            
     testLoss /= testNum
     correct /= testNum
     logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
                 f'Acc: {(100*correct):>0.1f}%, AvgLoss: {testLoss:>8f}, ' \
                 f'AddInfo: {addInfo}'
-    profLog = f"Model:{modelName}, AddInfo: {addInfo}\n {flop_count_table(flops)}"
     print(logMessage)
     testLogger.info(logMessage)
-    profLogger.info(profLog)
-    torch.save(model.state_dict(), os.path.join(
-    chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
+    if profLogger is not None:
+        flops = FlopCountAnalysis(model, X)
+        profLog = f"Model:{modelName}, AddInfo: {addInfo}\n {flop_count_table(flops)}"
+        profLogger.info(profLog)
+    if chkPtPath is not None:
+        torch.save(model.state_dict(), os.path.join(
+        chkPtPath, 'test-{}-{}{}.chkpt'.format(modelName, epochNum, addInfo)))
     return
 
 def testSNet(sModel, testDataLoader, device,

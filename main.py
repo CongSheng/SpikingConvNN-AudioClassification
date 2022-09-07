@@ -1,4 +1,3 @@
-from urllib.response import addinfo
 import torch
 from torch import nn, optim
 import argparse
@@ -145,7 +144,7 @@ def main(args):
         if modelName == "AlexSCNN" or modelName == "CustomSCNN":
             test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, checkpoint_path, modelName, addInfo, logger, profLogger)
         else:
-            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, checkpoint_path, modelName, addInfo, logger, profLogger)
+            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, checkpoint_path, profLogger)
         # model.eval()
         # test_loss, correct = 0, 0
         # with torch.no_grad():
