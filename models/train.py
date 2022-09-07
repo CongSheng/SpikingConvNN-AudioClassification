@@ -1,3 +1,4 @@
+from cProfile import label
 from tqdm import tqdm
 import torch
 import os
@@ -68,3 +69,41 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
     ))
     return model, train_loss_hist, train_accu_hist, iterCount
         
+def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, gradClip=False, weightClip=False, device="cpu", scheduler=None):
+    """Complete one epoch of training."""
+    net.train()
+    lossHist = []
+    lrHist = []
+    accuHist = []
+    correct = 0
+    for epoch in tqdm(range(epochNum)):
+        i = 0
+        for data, labels in trainloader:
+            i+=1
+            data, labels = data.to(device), labels.to(device)
+            spk_rec, mem_rec = net(data)
+            loss_val = torch.zeros((1), dtype=torch.float, device=device)
+            for step in range(stepNum):
+                loss_val += criterion(mem_rec[step], labels)
+            optimizer.zero_grad()
+            loss_val.backward()
+
+            ## Enable gradient clipping
+            if gradClip:
+                torch.nn.utils.clip_grad_norm_(net.parameters(), 1.0)
+
+            ## Enable weight clipping
+            if weightClip:
+                with torch.no_grad():
+                    for param in net.parameters():
+                        param.clamp_(-1, 1)
+            optimizer.step()
+            scheduler.step()
+            lossHist.append(loss_val.item())
+            lrHist.append(optimizer.param_groups[0]["lr"])
+        acc = SF.accuracy_rate(spk_rec, labels) 
+        accuHist.append(acc)
+        print(f' Epoch: {epoch} | Train Loss: {lossHist[-1]:.3f} | Accuracy: {acc:.3f}')
+        
+    return net, lossHist, lrHist
+    

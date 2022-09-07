@@ -22,6 +22,13 @@ FRAME_LENGTH = 256
 N_MFCC = 16
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
+def trainTestSplit(trainSplit, testSplit, fullDataset):
+    fullDsLen = fullDataset.__len__()
+    trainLen = int(trainSplit * fullDsLen)
+    testLen = int(testSplit * fullDsLen)
+    trainDs, testDs = torch.utils.data.random_split(fullDataset, [trainLen, testLen])
+    return trainDs, testDs, fullDsLen, trainLen, testLen
+
 def main(args):
     # Logging
     logPath = args.logPath
@@ -48,22 +55,29 @@ def main(args):
                                             channel_in=args.channel_in,
                                             hop_length=HOP_LENGTH, 
                                             n_samples=N_MFCC)
-        full_ds_len = full_ds.__len__()
-    if datasetType == "rmse":
+        train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+    elif datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
                                             sample_rate=SAMPLE_RATE,
                                             max_shape = MAX_SHAPE,
                                             channel_in = args.channel_in,
                                             frame_length=FRAME_LENGTH,
                                             hop_length = HOP_LENGTH)
-        full_ds_len = full_ds.__len__()
-    
-    # Split dataset and implement dataloader
-    train_num = int(args.train_partition * full_ds_len)
-    test_num = int(args.test_partition * full_ds_len)
+        train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+    elif datasetType == "speechCmd":
+        full_ds = torch.audio.datasets.SPEECHCOMMANDS()
+        train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+    # elif datasetType == "LIBRISPEECH":
+    #     train_ds = torch.audio.datasets.LIBRISPEECH(url='train-clean-360')
+    #     test_ds = torch.audio.datasets.LIBRISPEECH(url='test-clean')
+    #     train_num = train_ds.__len__()
+    #     test_num = test_ds.__len__()
+    #     full_ds_len = train_num + test_num
+    else:
+        print("Invalid dataset")
+        raise RuntimeError
+
     assert (train_num + test_num) == full_ds_len, "Invalid partitioning"
-    train_ds, test_ds = torch.utils.data.random_split(full_ds, 
-                                                    [train_num, test_num])
     train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
     test_dl = DataLoader(test_ds, batch_size=args.batch_size, shuffle=True)
     print("-----Loaded-----\n")
@@ -142,9 +156,9 @@ def main(args):
     # Test
     if args.test=="Y":
         if modelName == "AlexSCNN" or modelName == "CustomSCNN":
-            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, checkpoint_path, modelName, addInfo, logger, profLogger)
+            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path,)
         else:
-            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, checkpoint_path, profLogger)
+            test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
         # model.eval()
         # test_loss, correct = 0, 0
         # with torch.no_grad():

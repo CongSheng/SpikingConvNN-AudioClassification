@@ -44,38 +44,41 @@ def qtMain(args):
 
     # Load Model
     lossFn = nn.CrossEntropyLoss()
-
+    epochNum = args.numEpoch
+    # Load state dictionary
+    checkpoint = torch.load(args.chkPtPath)
     if modelName == "CustomSCNN":
+        numSteps = args.numSteps
         model = qtSNet(args.numSteps, 0.5).to(device)
-        print("Spikey!")
+        print("Spikey QAT!")
         optimizer = optim.Adam(model.parameters(), lr=args.learning_rate, betas=(0.9, 0.999))
         scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, 
                                                             T_max=4690, 
                                                             eta_min=0, 
                                                             last_epoch=-1)
+        qatModel, lossHist, lrHist = train.qatrainSNet(model, epochNum, numSteps, trgLoader, lossFn, optimizer, scheduler=scheduler)
+        test.testSNet(qatModel, testLoader, device, lossFn, numSteps, testNum, epochNum, modelName, addInfo, logger)
     else:
         model = qtCNet().to(device)
+        model.load_state_dict(checkpoint)
+        
+        # Quantize
+        qtModel = staticQtModel(model, 'fbgemm', datasetTrain.__getitem__(2)[0])    
+
+        # Test quantized model
+        test.testNet(qtModel, testLoader, device, lossFn, testNum, epochNum, modelName, addInfo, logger)
     
-    # Load state dictionary
-    checkpoint = torch.load(args.chkPtPath)
-    model.load_state_dict(checkpoint)
-    epochNum = args.numEpoch
-
-    # Quantize
-    qtModel = staticQtModel(model, 'fbgemm', datasetTrain.__getitem__(2)[0])    
-
-    # Test quantized model
-    test.testNet(qtModel, testLoader, device, lossFn, testNum, epochNum, modelName, addInfo, logger)
        
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--modelName', type=str, default="AlexCNN", help="name of model")
     parser.add_argument('--chkPtPath', type=str, default="checkpoints/")
     parser.add_argument('--dataPathTrg', type=str, default="transformedData/mfcc/trg", help="Path containing train data")
-    parser.add_argument('--dataPathTest', type=str, default="transformedData/mfcc/trg", help="Path containing test data")
+    parser.add_argument('--dataPathTest', type=str, default="transformedData/mfcc/test", help="Path containing test data")
     parser.add_argument('--numEpoch', type=int, default=20)
     parser.add_argument('--numSteps', type=int, default=10, help="Number of time steps for spiking version")
     parser.add_argument('--logPath', type=str, default='test.log', help="Directory of file to log results")
+    parser.add_argument('--learning_rate', type=float, default=0.001)
     args = parser.parse_args()
     print(args)
     qtMain(args)

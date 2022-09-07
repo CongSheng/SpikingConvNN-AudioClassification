@@ -112,19 +112,17 @@ class qtSNet(nn.Module):
         self.num_steps = num_steps
         self.nBits = nBits
         self.spike_grad = spike_grad
-        self.quant = torch.quantization.QuantStub()
-        self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=self.self.nBits)
+        self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=self.nBits)
         self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.self.nBits)
+        self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc1 = qnn.QuantLinear(12544, 128, weight_bit_width=self.self.nBits) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.fc1 = qnn.QuantLinear(12544, 128, bias=False, weight_bit_width=self.nBits) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc2 = qnn.QuantLinear(128, 64, weight_bit_width=self.self.nBits)
+        self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc3 = qnn.QuantLinear(64, 10, weight_bit_width=self.self.nBits)
+        self.fc3 = qnn.QuantLinear(64, 10, bias=False, weight_bit_width=self.nBits)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.dequant = torch.quantization.DeQuantStub()
 
     def forward(self, x):
         # Initialize hidden states and outputs at t=0
@@ -138,7 +136,6 @@ class qtSNet(nn.Module):
         # Record the final layer
         spk5_rec = []
         mem5_rec = []
-        x = self.quant(x)
         for step in range(self.num_steps):
             # cur1 = self.pool(self.conv1(x))
             cur1 = self.conv1(x)
@@ -155,6 +152,4 @@ class qtSNet(nn.Module):
             
             spk5_rec.append(spk5)
             mem5_rec.append(mem5)
-        self.dequant(x)
-
         return torch.stack(spk5_rec), torch.stack(mem5_rec)

@@ -3,3 +3,5 @@ revenv
 /checkpoints
 /featuresFigure/
 /free-spoken-digit-dataset-v1.0.8/FSDD
+/speechcommand/
+/librispeech/
