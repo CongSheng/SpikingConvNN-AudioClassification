@@ -17,7 +17,7 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
-HOP_LENGTH = 160
+HOP_LENGTH = 512
 FRAME_LENGTH = 256
 N_MFCC = 16
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
@@ -25,11 +25,14 @@ formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 def trainTestSplit(trainSplit, testSplit, fullDataset):
     fullDsLen = fullDataset.__len__()
     trainLen = int(trainSplit * fullDsLen)
-    testLen = int(testSplit * fullDsLen)
+    # testLen = int(testSplit * fullDsLen)
+    testLen = fullDsLen - trainLen
+    print(f"Total Number:{fullDsLen} , Training Number:{trainLen}, Test Number:{testLen}")
     trainDs, testDs = torch.utils.data.random_split(fullDataset, [trainLen, testLen])
     return trainDs, testDs, fullDsLen, trainLen, testLen
 
 def main(args):
+    global SAMPLE_RATE
     # Logging
     logPath = args.logPath
     profilePath = args.profilePath
@@ -47,7 +50,7 @@ def main(args):
     
     # Init dataset
     datasetType = args.dataset_type
-    assert datasetType=="mfcc" or datasetType=="rmse", 'Invalid dataset type'
+    # assert datasetType=="mfcc" or datasetType=="rmse", 'Invalid dataset type'
     if datasetType == "mfcc":
         full_ds = mfcc_dataset.MFCCDataset(args.data_path, 
                                             sample_rate=SAMPLE_RATE,
@@ -64,20 +67,26 @@ def main(args):
                                             frame_length=FRAME_LENGTH,
                                             hop_length = HOP_LENGTH)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
-    elif datasetType == "speechCmd":
-        full_ds = torch.audio.datasets.SPEECHCOMMANDS()
-        train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
-    # elif datasetType == "LIBRISPEECH":
-    #     train_ds = torch.audio.datasets.LIBRISPEECH(url='train-clean-360')
-    #     test_ds = torch.audio.datasets.LIBRISPEECH(url='test-clean')
-    #     train_num = train_ds.__len__()
-    #     test_num = test_ds.__len__()
-    #     full_ds_len = train_num + test_num
+    elif datasetType == "speechcommand":
+        SAMPLE_RATE = 16000
+        # full_ds = mfcc_dataset.MFCCDatasetv2("speechcommand/SpeechCommands/speech_commands_v0.02/",
+        #                                     sample_rate=SAMPLE_RATE,
+        #                                     max_shape = MAX_SHAPE,
+        #                                     channel_in=args.channel_in,
+        #                                     hop_length=HOP_LENGTH, 
+        #                                     n_samples=N_MFCC)
+        train_ds = customDataset.fetchData("transformedData/speechcommand/trg")
+        test_ds = customDataset.fetchData("transformedData/speechcommand/test")
+        train_num = train_ds.__len__()
+        test_num = test_ds.__len__()
+        full_ds_len = train_num + test_num
+        print(f"Train data: {train_num}")
+        print(f"Test data: {test_num}")
     else:
         print("Invalid dataset")
         raise RuntimeError
 
-    assert (train_num + test_num) == full_ds_len, "Invalid partitioning"
+    # assert (train_num + test_num) == full_ds_len, "Invalid partitioning"
     train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
     test_dl = DataLoader(test_ds, batch_size=args.batch_size, shuffle=True)
     print("-----Loaded-----\n")
