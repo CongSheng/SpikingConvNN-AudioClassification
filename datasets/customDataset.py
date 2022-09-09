@@ -2,7 +2,6 @@ import os
 import numpy as np
 import pandas as pd
 import librosa
-import unicodedata
 
 import torch
 from torch.utils.data import Dataset
@@ -69,11 +68,8 @@ class fetchData(Dataset):
         singleFeatPath = os.path.join(self.featurePath, listFeature[index])
         data = torch.load(singleFeatPath)
         label = listFeature[index].split('_')[0]
-        if len(label)>1:
-            label = int("".join([str(ord(character)) for character in label]))
-        else:
-            label = int(label)
-        return torch.tensor(data), torch.tensor(label)
+        label = int(label)
+        return data, label
     
     def __len__(self):
         return self.len

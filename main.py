@@ -59,6 +59,7 @@ def main(args):
                                             hop_length=HOP_LENGTH, 
                                             n_samples=N_MFCC)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+        num_classes = 10
     elif datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
                                             sample_rate=SAMPLE_RATE,
@@ -67,6 +68,7 @@ def main(args):
                                             frame_length=FRAME_LENGTH,
                                             hop_length = HOP_LENGTH)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+        num_classes = 10
     elif datasetType == "speechcommand":
         SAMPLE_RATE = 16000
         # full_ds = mfcc_dataset.MFCCDatasetv2("speechcommand/SpeechCommands/speech_commands_v0.02/",
@@ -82,6 +84,7 @@ def main(args):
         full_ds_len = train_num + test_num
         print(f"Train data: {train_num}")
         print(f"Test data: {test_num}")
+        num_classes = 35
     else:
         print("Invalid dataset")
         raise RuntimeError
@@ -118,9 +121,9 @@ def main(args):
         model_full = AlexCNN.AlexSpikingNet(device, 0.5, surrogate.fast_sigmoid(slope=0.75))
         model = model_full.net
     elif modelName == "CustomSCNN":
-        model = CustomCNN.customSNet(args.num_steps, 0.5).to(device)
+        model = CustomCNN.customSNet(args.num_steps, 0.5, num_class = num_classes).to(device)
     else:
-        model = CustomCNN.customNet().to(device)
+        model = CustomCNN.customNet(num_class = num_classes).to(device)
     
     # Setting up optimizers and tracking
     criterion = nn.CrossEntropyLoss()

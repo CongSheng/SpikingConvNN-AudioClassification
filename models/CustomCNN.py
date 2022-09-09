@@ -8,14 +8,14 @@ import brevitas.nn as qnn
 
 class customNet(nn.Module):
     ## Set max shape = (32, 32)
-    def __init__(self):
+    def __init__(self, num_class = 10):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 6, 3) # (6 ,30, 30)
         self.pool = nn.MaxPool2d(2, 2)  # (6, 15, 15)
         self.conv2 = nn.Conv2d(6, 16, 3) # (16, 13, 13)
         self.fc1 = nn.Linear(576, 128)
         self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 10)
+        self.fc3 = nn.Linear(64, num_class)
 
     def forward(self, x):
         x = self.pool(F.relu(self.conv1(x)))
@@ -27,7 +27,7 @@ class customNet(nn.Module):
         return x
 
 class customSNet(nn.Module):
-    def __init__(self, num_steps, beta, spike_grad=snn.surrogate.fast_sigmoid(slope=25)):
+    def __init__(self, num_steps, beta, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
         super().__init__()
         self.num_steps = num_steps
         self.conv1 = nn.Conv2d(1, 6, 3)
@@ -39,7 +39,7 @@ class customSNet(nn.Module):
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = nn.Linear(128, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc3 = nn.Linear(64, 10)
+        self.fc3 = nn.Linear(64, num_class)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
 
     def forward(self, x):
@@ -77,7 +77,7 @@ class customSNet(nn.Module):
 ### Quantized versions of the CNN ###
 class qtCNet(nn.Module):
     ## Set max shape = (32, 32)
-    def __init__(self):
+    def __init__(self, num_class = 10):
         super(qtCNet, self).__init__()
         self.quant = torch.quantization.QuantStub()
         self.conv1 = nn.Conv2d(1, 6, 3) # (6 ,30, 30)
@@ -86,7 +86,7 @@ class qtCNet(nn.Module):
         self.relu = nn.ReLU(inplace=True)
         self.fc1 = nn.Linear(576, 128)
         self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, 10)
+        self.fc3 = nn.Linear(64, num_class)
         self.dequant = torch.quantization.DeQuantStub()
 
     def forward(self, x):
