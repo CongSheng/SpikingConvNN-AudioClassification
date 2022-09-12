@@ -17,7 +17,7 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
-HOP_LENGTH = 512
+HOP_LENGTH = 2048
 FRAME_LENGTH = 256
 N_MFCC = 16
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
@@ -60,6 +60,7 @@ def main(args):
                                             n_samples=N_MFCC)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
         num_classes = 10
+        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
     elif datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
                                             sample_rate=SAMPLE_RATE,
@@ -69,6 +70,7 @@ def main(args):
                                             hop_length = HOP_LENGTH)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
         num_classes = 10
+        addInfo = f"hopLen{HOP_LENGTH}_frameLen{FRAME_LENGTH}_{datasetType}"
     elif datasetType == "speechcommand":
         SAMPLE_RATE = 16000
         # full_ds = mfcc_dataset.MFCCDatasetv2("speechcommand/SpeechCommands/speech_commands_v0.02/",
@@ -85,6 +87,18 @@ def main(args):
         print(f"Train data: {train_num}")
         print(f"Test data: {test_num}")
         num_classes = 35
+        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
+    elif datasetType =="mswc":
+        SAMPLE_RATE = 48000
+        full_ds = mfcc_dataset.MFCCDatasetv2("mswc/EN/", 
+                                            sample_rate=SAMPLE_RATE,
+                                            max_shape = MAX_SHAPE,
+                                            channel_in=args.channel_in,
+                                            hop_length=HOP_LENGTH, 
+                                            n_samples=N_MFCC, max_length = SAMPLE_RATE)
+        train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
+        num_classes = 31
+        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
     else:
         print("Invalid dataset")
         raise RuntimeError
@@ -132,12 +146,6 @@ def main(args):
     train_loss_hist = []
     train_accu_hist = []
     epoch_num = args.num_epochs
-    
-    # Print plot feature if stated
-    if datasetType=="mfcc":
-        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
-    if datasetType == "rmse":
-        addInfo = f"hopLen{HOP_LENGTH}_frameLen{FRAME_LENGTH}_{datasetType}"
 
     if args.plot_feature == 'Y':
         sample_point, sample_label = next(iter(train_dl))

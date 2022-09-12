@@ -720,3 +720,98 @@
 |  fc3           |  0.65K                 |  7.68K   |
 |   fc3.weight   |   (10, 64)             |          |
 |   fc3.bias     |   (10,)                |          |
+2022-09-09 17:06:52,975:INFO:ProfileLogger:Model:CustomCNN, AddInfo: hopLen2048_nMFCC16_mswc
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 85.067K                | 1.114M   |
+|  conv1         |  60                    |  0.194M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.584M  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  73.856K               |  0.295M  |
+|   fc1.weight   |   (128, 576)           |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  32.768K |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  2.015K                |  7.936K  |
+|   fc3.weight   |   (31, 64)             |          |
+|   fc3.bias     |   (31,)                |          |
+2022-09-10 16:21:45,717:INFO:ProfileLogger:Model:CustomCNN, AddInfo: hopLen2048_nMFCC16_mswc
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 85.067K                | 1.114M   |
+|  conv1         |  60                    |  0.194M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.584M  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  73.856K               |  0.295M  |
+|   fc1.weight   |   (128, 576)           |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  32.768K |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  2.015K                |  7.936K  |
+|   fc3.weight   |   (31, 64)             |          |
+|   fc3.bias     |   (31,)                |          |
+2022-09-10 22:48:02,703:INFO:ProfileLogger:Model:CustomSCNN, AddInfo: hopLen2048_nMFCC16_mswc_10Steps
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.617M                 | 93.671M  |
+|  conv1         |  60                    |  1.944M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  27.095M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  64.225M |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  0.328M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  2.015K                |  79.36K  |
+|   fc3.weight   |   (31, 64)             |          |
+|   fc3.bias     |   (31,)                |          |
+2022-09-12 14:26:22,836:INFO:ProfileLogger:Model:CustomCNN, AddInfo: hopLen2048_nMFCC16_mfcc
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 83.702K                | 3.326M   |
+|  conv1         |  60                    |  0.583M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  1.752M  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  73.856K               |  0.885M  |
+|   fc1.weight   |   (128, 576)           |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  98.304K |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  7.68K   |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-09-12 16:15:47,362:INFO:ProfileLogger:Model:CustomSCNN, AddInfo: hopLen2048_nMFCC16_mfcc_10Steps
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.281G   |
+|  conv1         |  60                    |  5.832M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  81.285M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.193G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  0.983M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  76.8K   |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |

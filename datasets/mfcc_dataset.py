@@ -78,13 +78,15 @@ class MFCCDatasetv2(Dataset):
         self.data_path = str(data_path)
         self.data = []
         self.labels = []
+        self.labelList = sorted(os.listdir(data_path))
+        print(f"Label List: {self.labelList}")
         for label in tqdm(os.listdir(data_path)):
             if "_" in label:
                 continue
             sub_path = os.path.join(data_path, label)
             if os.path.isfile(sub_path):
                 continue
-            print(f"Reading from subpath: {sub_path}")
+            print(f"\nReading from subpath: {sub_path}")
             for fileName in os.listdir(sub_path):
                 fileName = os.path.join(sub_path, fileName)
                 audio, _ = librosa.load(fileName, mono=True, sr=sample_rate)
@@ -114,7 +116,7 @@ class MFCCDatasetv2(Dataset):
                     mfcc = self.padMFCC(mfcc, max_shape)
                     mfcc = torch.stack([mfcc, mfcc, mfcc], dim=0)
                 self.data.append(mfcc)
-                self.labels.append(label)
+                self.labels.append(self.labelList.index(label))
     
     def __len__(self):
         return len(self.labels)
@@ -127,7 +129,7 @@ class MFCCDatasetv2(Dataset):
     def padMFCC(self, mfcc, shapeDesired, padMode='constant', valuePad=0):
         lenMFCC, widthMFCC = mfcc.shape[0], mfcc.shape[1]
         (lenGoal, widthGoal) = shapeDesired
-        assert lenMFCC <= lenGoal and widthMFCC <= widthGoal, "MFCC too large, consider reducing n_mfcc or increasing hop length"
+        assert lenMFCC <= lenGoal and widthMFCC <= widthGoal, f"MFCC too large {lenMFCC} x {widthMFCC}, consider reducing n_mfcc or increasing hop length"
         rightPad = int((widthGoal - widthMFCC)/2)
         topPad = int((lenGoal - lenMFCC)/2)
         leftPad = widthGoal - widthMFCC - rightPad
