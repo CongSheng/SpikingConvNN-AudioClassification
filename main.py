@@ -136,6 +136,8 @@ def main(args):
         model = model_full.net
     elif modelName == "CustomSCNN":
         model = CustomCNN.customSNet(args.num_steps, 0.5, num_class = num_classes).to(device)
+    elif modelName == "CustomSCNN2":
+        model = CustomCNN.customSNetv2(args.num_steps, 0.5, num_class = num_classes).to(device)
     else:
         model = CustomCNN.customNet(num_class = num_classes).to(device)
     
@@ -156,7 +158,7 @@ def main(args):
                                 label=sample_label[0])
 
     # Train
-    if modelName == "AlexSCNN" or modelName == "CustomSCNN":
+    if modelName == "AlexSCNN" or modelName == "CustomSCNN" or modelName=="CustomSCNN2":
         spikingMode = True
         numSteps = args.num_steps
         addInfo = f"{addInfo}_{numSteps}Steps"
@@ -175,7 +177,7 @@ def main(args):
     
     # Test
     if args.test=="Y":
-        if modelName == "AlexSCNN" or modelName == "CustomSCNN":
+        if modelName == "AlexSCNN" or modelName == "CustomSCNN" or modelName=="CustomSCNN2":
             test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path,)
         else:
             test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)

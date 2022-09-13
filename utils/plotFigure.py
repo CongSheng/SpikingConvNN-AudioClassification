@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import os
 
 def plotTrainingProgTwin(hist, loss, figsaveDir, iterCount=0, 
                         figsizeIn=(10, 5), spiking=False):
@@ -47,4 +48,17 @@ def plotWave(wave, figsaveDir, label=None):
         plt.tight_layout()
         plt.savefig(figsaveDir)
     plt.close()
+
+def plotFilter(layerWeight, figName, figPath, nnMode):
+    fig = plt.figure(figsize=(10, 8))
+    plt.rcParams['font.size'] = '16'
+    for filter in range(layerWeight.shape[0]):
+        kernelWeight = np.squeeze(layerWeight[filter], axis=0)
+        xlim, ylim = kernelWeight.shape
+        plt.imshow(kernelWeight, cmap='hot', vmin=0, vmax=1, extent=(0, xlim, 0, ylim))
+        plt.colorbar()
+        plt.savefig(os.path.join(figPath, f"{nnMode}_{figName}filter{filter}_weights.png"))
+        plt.clf()
+    return
+
 
