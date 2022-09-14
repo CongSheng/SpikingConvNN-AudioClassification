@@ -17,7 +17,7 @@ print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
 
 SAMPLE_RATE = 8000
 MAX_SHAPE = (32, 32)
-HOP_LENGTH = 2048
+HOP_LENGTH = 512
 FRAME_LENGTH = 256
 N_MFCC = 16
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
@@ -61,6 +61,16 @@ def main(args):
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
         num_classes = 10
         addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
+    elif datasetType == "MFCC_fixed":
+        train_ds = customDataset.fetchData("transformedData/mfcc/trg")
+        test_ds = customDataset.fetchData("transformedData/mfcc/test")
+        train_num = train_ds.__len__()
+        test_num = test_ds.__len__()
+        full_ds_len = train_num + test_num
+        print(f"Train data: {train_num}")
+        print(f"Test data: {test_num}")
+        num_classes = 10
+        addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
     elif datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
                                             sample_rate=SAMPLE_RATE,
@@ -102,6 +112,9 @@ def main(args):
     else:
         print("Invalid dataset")
         raise RuntimeError
+
+    if args.extraInfo != "None":
+        addInfo = addInfo + args.extraInfo
 
     # assert (train_num + test_num) == full_ds_len, "Invalid partitioning"
     train_dl = DataLoader(train_ds, batch_size=args.batch_size, shuffle=True)
@@ -211,8 +224,8 @@ if __name__ == '__main__':
     parser.add_argument('--model_name', type=str, default="AlexCNN", help="name of model")
     parser.add_argument('--data_path', type=str, default="free-spoken-digit-dataset-v1.0.8/FSDD/recordings/", help="Path containing audio data")
     parser.add_argument('--datasetSaveDir', type=str, default="None", help="Insert dataset path if you wish to save the dataset")
-    parser.add_argument('--img_path', type=str, default="figures/", help="Path for plots")
-    parser.add_argument('--chkpt_path', type=str, default="checkpoints/")
+    parser.add_argument('--img_path', type=str, default="Expt/figures/", help="Path for plots")
+    parser.add_argument('--chkpt_path', type=str, default="Expt/checkpoints/")
     parser.add_argument('--dataset_type', type=str, default="mfcc", help="Type of dataset to load")
     parser.add_argument('--train_partition', type=float, default=0.8, help="Fraction of dataset for training (0-1)")
     parser.add_argument('--test_partition', type=float, default=0.2, help="Fraction of dataset for testing (0-1)")
@@ -223,8 +236,9 @@ if __name__ == '__main__':
     parser.add_argument('--learning_rate', type=float, default=0.001)
     parser.add_argument('--test', type=str, default="N")
     parser.add_argument('--plot_feature', type=str, default="N")
-    parser.add_argument('--logPath', type=str, default='test.log', help="Directory of file to log results")
-    parser.add_argument('--profilePath', type=str, default='flopLog.log', help="Directory of file to log profile")
+    parser.add_argument('--logPath', type=str, default='expTest.log', help="Directory of file to log results")
+    parser.add_argument('--profilePath', type=str, default='expFlopLog.log', help="Directory of file to log profile")
+    parser.add_argument('--extraInfo', type=str, default="None")
     args = parser.parse_args()
     print(args)
     main(args)

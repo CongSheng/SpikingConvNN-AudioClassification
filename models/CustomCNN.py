@@ -13,7 +13,7 @@ class customNet(nn.Module):
         self.conv1 = nn.Conv2d(1, 6, 3) # (6 ,30, 30)
         self.pool = nn.MaxPool2d(2, 2)  # (6, 15, 15)
         self.conv2 = nn.Conv2d(6, 16, 3) # (16, 13, 13)
-        self.fc1 = nn.Linear(576, 128)
+        self.fc1 = nn.Linear(576, 128) #576 for full, 1350 for topconv only
         self.fc2 = nn.Linear(128, 64)
         self.fc3 = nn.Linear(64, num_class)
 
@@ -83,11 +83,11 @@ class customSNetv2(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc1 = nn.Linear(3136, 64) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.fc1 = nn.Linear(5400, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = nn.Linear(128, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc3 = nn.Linear(64, num_class)
+        self.fc3 = nn.Linear(128, num_class)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
 
     def forward(self, x):
@@ -107,10 +107,10 @@ class customSNetv2(nn.Module):
             # cur1 = self.pool(self.conv1(x))
             cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
-            cur2 = self.pool(self.conv2(spk1))
+            # cur2 = self.pool(self.conv2(spk1))
             # cur2 = self.conv2(spk1)
-            spk2, mem2 = self.lif2(cur2, mem2)
-            cur3 = self.fc1(spk2.view(batch_size_curr, -1))
+            # spk2, mem2 = self.lif2(cur1, mem2)
+            cur3 = self.fc1(spk1.view(batch_size_curr, -1))
             spk3, mem3 = self.lif3(cur3, mem3)
             # cur4 = self.fc2(spk3)
             # spk4, mem4 = self.lif4(cur4, mem4)
