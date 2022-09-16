@@ -12,6 +12,8 @@ from models.CustomCNN import qtCNet, qtSNet
 from datasets.customDataset import fetchData
 from utils import loggingFn
 
+CONFIG_TYPE = "6C3-16C3-128F-64F-10F-10Steps"
+CHECKPT_PATH = "Expt/checkpoints/QT/"
 device = torch.device("cpu")
 
 def staticQtModel(model, config, singleData):
@@ -40,7 +42,7 @@ def qtMain(args):
     print(f"Test data: {testNum}")
     trgLoader = DataLoader(datasetTrain, batch_size=32, shuffle=True, num_workers=2)
     testLoader = DataLoader(datasetTest, batch_size=64, shuffle=False, num_workers=2)
-    addInfo = f"quantized_result_{modelName}"
+    addInfo = f"quantized_result_{modelName}_{CONFIG_TYPE}"
 
     # Load Model
     lossFn = nn.CrossEntropyLoss()
@@ -56,7 +58,7 @@ def qtMain(args):
                                                             T_max=4690, 
                                                             eta_min=0, 
                                                             last_epoch=-1)
-        qatModel, lossHist, lrHist = train.qatrainSNet(model, epochNum, numSteps, trgLoader, lossFn, optimizer, scheduler=scheduler)
+        qatModel, lossHist, lrHist = train.qatrainSNet(model, epochNum, numSteps, trgLoader, lossFn, optimizer, addInfo=CONFIG_TYPE, scheduler=scheduler, checkpoint_path=CHECKPT_PATH)
         test.testSNet(qatModel, testLoader, device, lossFn, numSteps, testNum, epochNum, modelName, addInfo, logger)
     else:
         model = qtCNet().to(device)

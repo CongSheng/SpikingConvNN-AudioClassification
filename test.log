@@ -59,3 +59,7 @@
 2022-09-13 15:28:39,325:INFO:ResultsLogger:Model:CustomSCNN2, EpochTrained:20, Acc: 95.3%, AvgLoss: 0.122155, AddInfo: hopLen2048_nMFCC16_mfcc_10StepsReduce2ndLastLayer
 2022-09-13 15:35:16,704:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 96.3%, AvgLoss: 0.142293, AddInfo: hopLen2048_nMFCC16_mfcc_10Steps
 2022-09-13 15:37:25,111:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 96.3%, AvgLoss: 0.010595, AddInfo: hopLen2048_nMFCC16_mfcc
+2022-09-15 16:58:37,513:INFO:ResultsLogger:Model:customSCNN, EpochTrained:20, Acc: 18.3%, AvgLoss: 0.387712, AddInfo: quantized_result_customSCNN_6C3-16C3-128F-64F-10F-10Steps
+2022-09-15 17:30:16,090:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.3%, AvgLoss: 0.007580, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps
+2022-09-16 15:54:16,348:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 9.7%, AvgLoss: 0.383764, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps
+2022-09-16 16:22:44,507:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.0%, AvgLoss: 0.006550, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps

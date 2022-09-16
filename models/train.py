@@ -69,7 +69,7 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
     ))
     return model, train_loss_hist, train_accu_hist, iterCount
         
-def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, gradClip=False, weightClip=False, device="cpu", scheduler=None):
+def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, addInfo=None, gradClip=False, weightClip=False, device="cpu", scheduler=None, checkpoint_path=None):
     """Complete one epoch of training."""
     net.train()
     lossHist = []
@@ -104,6 +104,8 @@ def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, gradC
         acc = SF.accuracy_rate(spk_rec, labels) 
         accuHist.append(acc)
         print(f' Epoch: {epoch} | Train Loss: {lossHist[-1]:.3f} | Accuracy: {acc:.3f}')
-        
+    print("-----Finished Training-----")
+    if checkpoint_path is not None:
+        torch.save(net.state_dict(), os.path.join(checkpoint_path, f'train-qtModel-{epochNum}-{addInfo}.chkpt'))
     return net, lossHist, lrHist
     
