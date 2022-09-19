@@ -128,20 +128,20 @@ class customSNetv2(nn.Module):
 ### Quantized versions of the CNN ###
 class qtCNet(nn.Module):
     ## Set max shape = (32, 32)
-    def __init__(self, num_class = 10):
+    def __init__(self, nBits=8, num_class = 10):
         super(qtCNet, self).__init__()
-        self.quant = torch.quantization.QuantStub()
-        self.conv1 = nn.Conv2d(1, 6, 3) # (6 ,30, 30)
+        # self.quant = torch.quantization.QuantStub()
+        self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=nBits) # nn.Conv2d(1, 6, 3) # (6 ,30, 30)
         self.pool = nn.MaxPool2d(2, 2)  # (6, 15, 15)
-        self.conv2 = nn.Conv2d(6, 16, 3) # (16, 13, 13)
+        self.conv2 =  qnn.QuantConv2d(6, 16, 3, weight_bit_width=nBits) # nn.Conv2d(6, 16, 3) # (16, 13, 13)
         self.relu = nn.ReLU(inplace=True)
-        self.fc1 = nn.Linear(576, 128)
-        self.fc2 = nn.Linear(128, 64)
-        self.fc3 = nn.Linear(64, num_class)
-        self.dequant = torch.quantization.DeQuantStub()
+        self.fc1 = qnn.QuantLinear(576, 128, weight_bit_width=nBits) # nn.Linear(576, 128)
+        self.fc2 = qnn.QuantLinear(128, 64, weight_bit_width=nBits) # nn.Linear(128, 64)
+        self.fc3 = qnn.QuantLinear(64, num_class, weight_bit_width=nBits) # nn.Linear(64, num_class)
+        # self.dequant = torch.quantization.DeQuantStub()
 
     def forward(self, x):
-        x = self.quant(x)
+        # x = self.quant(x)
         x = self.conv1(x)
         x = self.relu(x)
         x = self.pool(x)
@@ -154,7 +154,7 @@ class qtCNet(nn.Module):
         x = self.fc2(x)
         x = self.relu(x)
         x = self.fc3(x)
-        x= self.dequant(x)
+        # x= self.dequant(x)
         return x
 
 class qtSNetBasic(nn.Module):
@@ -212,19 +212,19 @@ class qtSNet(nn.Module):
         self.num_steps = num_steps
         self.nBits = nBits
         self.spike_grad = spike_grad
-        self.qState = quant.state_quant(nBits, uniform=True)
+        # self.qState = quant.state_quant(nBits, uniform=True)
         # Layers definition
-        self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=self.nBits)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
+        self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.pool = nn.MaxPool2d(2, 2)
-        self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits)
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
-        self.fc1 = qnn.QuantLinear(12544, 128, bias=False, weight_bit_width=self.nBits) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
-        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
-        self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits)
-        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
-        self.fc3 = qnn.QuantLinear(64, 10, bias=False, weight_bit_width=self.nBits)
-        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
+        self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.fc1 = qnn.QuantLinear(12544, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
+        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.fc3 = qnn.QuantLinear(64, 10, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
+        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
 
     def forward(self, x):
         # Initialize hidden states and outputs at t=0
@@ -253,7 +253,7 @@ class qtSNet(nn.Module):
             spk4, mem4 = self.lif4(cur4, mem4)
             cur5 = self.fc3(spk4)
             spk5, mem5 = self.lif5(cur5, mem5)
-            
+
             spk5_rec.append(spk5)
             mem5_rec.append(mem5)
         return torch.stack(spk5_rec), torch.stack(mem5_rec)

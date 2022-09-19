@@ -59,7 +59,10 @@
 2022-09-13 15:28:39,325:INFO:ResultsLogger:Model:CustomSCNN2, EpochTrained:20, Acc: 95.3%, AvgLoss: 0.122155, AddInfo: hopLen2048_nMFCC16_mfcc_10StepsReduce2ndLastLayer
 2022-09-13 15:35:16,704:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 96.3%, AvgLoss: 0.142293, AddInfo: hopLen2048_nMFCC16_mfcc_10Steps
 2022-09-13 15:37:25,111:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 96.3%, AvgLoss: 0.010595, AddInfo: hopLen2048_nMFCC16_mfcc
-2022-09-15 16:58:37,513:INFO:ResultsLogger:Model:customSCNN, EpochTrained:20, Acc: 18.3%, AvgLoss: 0.387712, AddInfo: quantized_result_customSCNN_6C3-16C3-128F-64F-10F-10Steps
-2022-09-15 17:30:16,090:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.3%, AvgLoss: 0.007580, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps
-2022-09-16 15:54:16,348:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 9.7%, AvgLoss: 0.383764, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps
-2022-09-16 16:22:44,507:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.0%, AvgLoss: 0.006550, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps
+2022-09-19 13:45:09,217:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 28.3%, AvgLoss: 0.355690, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps_NoBias
+2022-09-19 14:20:09,735:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.0%, AvgLoss: 0.008688, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps_NoBias
+2022-09-19 14:43:59,440:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 99.3%, AvgLoss: 0.007580, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps_NoBias
+2022-09-19 15:08:30,489:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 100.0%, AvgLoss: 0.007396, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-10Steps_NoBias
+2022-09-19 17:11:17,088:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 97.7%, AvgLoss: 0.001221, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-1Steps
+2022-09-19 17:20:07,537:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 96.3%, AvgLoss: 0.002182, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-1Steps
+2022-09-19 17:29:09,454:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.001137, AddInfo: quantized_result_CustomSCNN_6C3-16C3-128F-64F-10F-1Steps
