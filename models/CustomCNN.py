@@ -219,11 +219,11 @@ class qtSNet(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc1 = qnn.QuantLinear(12544, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.fc1 = qnn.QuantLinear(1350, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
         self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
-        self.fc3 = qnn.QuantLinear(64, 10, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
+        self.fc3 = qnn.QuantLinear(128, 10, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
 
     def forward(self, x):
@@ -239,19 +239,19 @@ class qtSNet(nn.Module):
         spk5_rec = []
         mem5_rec = []
         for step in range(self.num_steps):
-            # cur1 = self.pool(self.conv1(x))
-            cur1 = self.conv1(x)
+            cur1 = self.pool(self.conv1(x))
+            # cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
             # print(f"First layer OK, cur1 is: {cur1.is_valid}")
             # cur2 = self.pool(self.conv2(spk1))
-            cur2 = self.conv2(spk1)
-            spk2, mem2 = self.lif2(cur2, mem2)
+            # cur2 = self.conv2(spk1)
+            # spk2, mem2 = self.lif2(cur2, mem2)
             # print(f"Second layer OK, cur2 is {cur2.is_valid}")
-            cur3 = self.fc1(spk2.view(batch_size_curr, -1))
+            cur3 = self.fc1(spk1.view(batch_size_curr, -1))
             spk3, mem3 = self.lif3(cur3, mem3)
-            cur4 = self.fc2(spk3)
-            spk4, mem4 = self.lif4(cur4, mem4)
-            cur5 = self.fc3(spk4)
+            # cur4 = self.fc2(spk3)
+            # spk4, mem4 = self.lif4(cur4, mem4)
+            cur5 = self.fc3(spk3)
             spk5, mem5 = self.lif5(cur5, mem5)
 
             spk5_rec.append(spk5)

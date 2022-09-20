@@ -12,7 +12,7 @@ from models.CustomCNN import qtCNet, qtSNet
 from datasets.customDataset import fetchData
 from utils import loggingFn
 
-CONFIG_TYPE = "6C3-16C3-128F-64F-10F-1Steps"
+CONFIG_TYPE = "6C3-P2-128F-10F-10Steps"
 CHECKPT_PATH = "Expt/checkpoints/QT/"
 device = torch.device("cpu")
 
