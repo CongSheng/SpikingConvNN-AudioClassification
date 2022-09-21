@@ -219,7 +219,7 @@ class qtSNet(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
-        self.fc1 = qnn.QuantLinear(1350, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.fc1 = qnn.QuantLinear(5400, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
         self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
@@ -239,8 +239,8 @@ class qtSNet(nn.Module):
         spk5_rec = []
         mem5_rec = []
         for step in range(self.num_steps):
-            cur1 = self.pool(self.conv1(x))
-            # cur1 = self.conv1(x)
+            # cur1 = self.pool(self.conv1(x))
+            cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
             # print(f"First layer OK, cur1 is: {cur1.is_valid}")
             # cur2 = self.pool(self.conv2(spk1))
