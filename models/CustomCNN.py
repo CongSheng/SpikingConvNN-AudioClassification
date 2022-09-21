@@ -30,20 +30,20 @@ class customNet(nn.Module):
         return x
 
 class customSNet(nn.Module):
-    def __init__(self, num_steps, beta, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
+    def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
         super().__init__()
         self.num_steps = num_steps
         self.conv1 = nn.Conv2d(1, 6, 3)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc1 = nn.Linear(12544, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
-        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc2 = nn.Linear(128, 64)
-        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc3 = nn.Linear(64, num_class)
-        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
 
     def forward(self, x):
         # Initialize hidden states and outputs at t=0
@@ -78,20 +78,20 @@ class customSNet(nn.Module):
         return torch.stack(spk5_rec), torch.stack(mem5_rec)
 
 class customSNetv2(nn.Module):
-    def __init__(self, num_steps, beta, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
+    def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
         super().__init__()
         self.num_steps = num_steps
         self.conv1 = nn.Conv2d(1, 6, 3)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc1 = nn.Linear(5400, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
-        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc2 = nn.Linear(128, 64)
-        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc3 = nn.Linear(128, num_class)
-        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
 
     def forward(self, x):
         # Initialize hidden states and outputs at t=0
@@ -212,17 +212,17 @@ class qtSNet(nn.Module):
         self.num_steps = num_steps
         self.nBits = nBits
         self.spike_grad = spike_grad
-        # self.qState = quant.state_quant(nBits, uniform=True)
+        self.qState = quant.state_quant(nBits, uniform=True)
         # Layers definition
         self.conv1 = qnn.QuantConv2d(1, 6, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = qnn.QuantConv2d(6, 16, 3, weight_bit_width=self.nBits, bias=False, return_quant_tensor=True)
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
         self.fc1 = qnn.QuantLinear(1350, 128, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
-        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
         self.fc2 = qnn.QuantLinear(128, 64, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
-        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad)
+        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, state_quant=self.qState)
         self.fc3 = qnn.QuantLinear(128, 10, bias=False, weight_bit_width=self.nBits, return_quant_tensor=True)
         self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad)
 

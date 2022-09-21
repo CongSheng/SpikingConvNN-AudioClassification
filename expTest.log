@@ -35,3 +35,4 @@
 2022-09-20 16:26:32,962:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 99.7%, AvgLoss: 0.000454, AddInfo: hopLen512_nMFCC16_mfcc1C2FCNoPool
 2022-09-20 16:38:31,498:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 98.7%, AvgLoss: 0.004698, AddInfo: hopLen512_nMFCC16_mfcc1C2FCNoPool
 2022-09-20 17:37:58,977:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 98.3%, AvgLoss: 0.003314, AddInfo: hopLen512_nMFCC16_mfcc
+2022-09-21 09:31:00,105:INFO:ResultsLogger:Model:CustomCNN, EpochTrained:20, Acc: 92.0%, AvgLoss: 0.015812, AddInfo: hopLen512_nMFCC16_mfcc

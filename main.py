@@ -191,7 +191,7 @@ def main(args):
     # Test
     if args.test=="Y":
         if modelName == "AlexSCNN" or modelName == "CustomSCNN" or modelName=="CustomSCNN2":
-            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path,)
+            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
         else:
             test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
         # model.eval()
