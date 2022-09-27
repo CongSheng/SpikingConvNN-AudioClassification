@@ -4,6 +4,8 @@ import os
 from fvcore.nn import FlopCountAnalysis
 from fvcore.nn import flop_count_table
 
+from models.CustomCNN import customSNet
+
 def testNet(model, testDataLoader, device, 
             lossFn, testNum, epochNum, 
             modelName, addInfo,
@@ -35,15 +37,18 @@ def testNet(model, testDataLoader, device,
 def testSNet(sModel, testDataLoader, device,
             lossFn, numSteps, testNum, epochNum, 
             modelName, addInfo,
-            testLogger, profLogger=None, chkPtPath=None):
+            testLogger, profLogger=None, chkPtPath=None, logSparse=False):
     testLoss = torch.zeros((1), dtype=torch.float, device=device)
     correct = 0
     testLossHist = []
+    sparseHist = []
     sModel.eval()
     with torch.no_grad():
         for _, (X, Y) in enumerate(testDataLoader):
                 X, Y = X.to(device), Y.to(device)      
                 testSpk, testMem = sModel(X)
+                if logSparse:
+                    sparseHist.append(sModel.get_sparsity())
                 _, pred = testSpk.sum(dim=0).max(1)
                 for step in range(numSteps):
                     testLoss += lossFn(testMem[step], Y)
@@ -55,6 +60,8 @@ def testSNet(sModel, testDataLoader, device,
     logMessage= f'Model:{modelName}, EpochTrained:{epochNum}, ' \
                 f'Acc: {(100*correct):>0.1f}%, AvgLoss: {testLoss:>8f}, ' \
                 f'AddInfo: {addInfo}'
+    if logSparse:
+        logMessage = f"{logMessage}, Avg sparsity: {sum(sparseHist)/len(sparseHist)}"
     print(logMessage)
     testLogger.info(logMessage)
     if profLogger is not None:

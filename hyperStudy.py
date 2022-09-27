@@ -14,7 +14,7 @@ from snntorch import surrogate
 from datasets import customDataset
 from models import CustomCNN, train, test
 
-EXPERIMENT_NAME = "Beta"
+EXPERIMENT_NAME = "Beta_Sparse"
 MODEL_NAME = "SCNN"
 LOG_PATH = "Expt/expt.log"
 PROFILE_LOG = "Expt/exptProfile.log"
@@ -78,6 +78,10 @@ def hyperStudyMain():
     train_loss_hist = []
     train_accu_hist = []
 
+    sparseMode = False
+    if "sparse" in EXPERIMENT_NAME.lower():
+        sparseMode = True
+
     if "time" in EXPERIMENT_NAME.lower():
         for timestep in tqdm(T_SPACE):
             model = CustomCNN.customSNetv2(timestep, defaultParam["beta"], num_class=num_classes).to(device)
@@ -87,7 +91,7 @@ def hyperStudyMain():
                                                             defaultParam["epochNum"], optimizer, defaultParam["lossFn"], timestep,
                                                             train_loss_hist, train_accu_hist, 
                                                             CHECKPOINT_PATH, MODEL_NAME)
-            test.testSNet(model, test_dl, device, defaultParam["lossFn"], timestep, test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH)
+            test.testSNet(model, test_dl, device, defaultParam["lossFn"], timestep, test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH, sparseMode)
     elif "threshold" in EXPERIMENT_NAME.lower():
         for currThres in tqdm(THRESHOLD_SPACE):
             model = CustomCNN.customSNetv2(defaultParam["timestep"], defaultParam["beta"], num_class=num_classes, threshold=currThres).to(device)
@@ -97,7 +101,7 @@ def hyperStudyMain():
                                                             defaultParam["epochNum"], optimizer, defaultParam["lossFn"], defaultParam["timestep"],
                                                             train_loss_hist, train_accu_hist, 
                                                             CHECKPOINT_PATH, MODEL_NAME)
-            test.testSNet(model, test_dl, device, defaultParam["lossFn"], defaultParam["timestep"], test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH)
+            test.testSNet(model, test_dl, device, defaultParam["lossFn"], defaultParam["timestep"], test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH, sparseMode)
     elif "beta" in EXPERIMENT_NAME.lower():
         for beta in tqdm(BETA_SPACE):
             model = CustomCNN.customSNetv2(defaultParam["timestep"], beta, num_class=num_classes, threshold=defaultParam["threshold"]).to(device)
@@ -107,7 +111,7 @@ def hyperStudyMain():
                                                             defaultParam["epochNum"], optimizer, defaultParam["lossFn"], defaultParam["timestep"],
                                                             train_loss_hist, train_accu_hist, 
                                                             CHECKPOINT_PATH, MODEL_NAME)
-            test.testSNet(model, test_dl, device, defaultParam["lossFn"], defaultParam["timestep"], test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH)
+            test.testSNet(model, test_dl, device, defaultParam["lossFn"], defaultParam["timestep"], test_num, defaultParam["epochNum"], MODEL_NAME, logInfo, logger, profLogger, CHECKPOINT_PATH, sparseMode)
     else:
         print("Design space not set up yet")
     

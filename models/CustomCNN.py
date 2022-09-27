@@ -81,6 +81,9 @@ class customSNetv2(nn.Module):
     def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
         super().__init__()
         self.num_steps = num_steps
+        self.zeroCount = 0
+        self.totalSize = 0
+        self.sparseRatio = 0
         self.conv1 = nn.Conv2d(1, 6, 3)
         self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.pool = nn.MaxPool2d(2, 2)
@@ -113,6 +116,9 @@ class customSNetv2(nn.Module):
             # cur2 = self.pool(self.conv2(spk1))
             # cur2 = self.conv2(spk1)
             # spk2, mem2 = self.lif2(cur1, mem2)
+            zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
+            self.zeroCount += zeroCount
+            self.totalSize += totalSize
             cur3 = self.fc1(spk1.view(batch_size_curr, -1))
             spk3, mem3 = self.lif3(cur3, mem3)
             # cur4 = self.fc2(spk3)
@@ -124,6 +130,16 @@ class customSNetv2(nn.Module):
             mem5_rec.append(mem5)
 
         return torch.stack(spk5_rec), torch.stack(mem5_rec)
+
+    def get_sparsity(self):
+        return self.zeroCount / self.totalSize
+
+    def getZeros(self, input):
+        totalSize = torch.numel(input)
+        nonZeroCount = torch.count_nonzero(input)
+        zeroCount = totalSize - nonZeroCount
+        sparseRatio = zeroCount/totalSize
+        return zeroCount, totalSize, sparseRatio
 
 ### Quantized versions of the CNN ###
 class qtCNet(nn.Module):

@@ -86,3 +86,5 @@
 2022-09-21 16:55:54,124:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 93.2%, AvgLoss: 0.030832, AddInfo: quantized_result_CustomSCNN_6C3-P2-128F-10F-10Steps-QuantStates
 2022-09-21 17:39:41,292:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 94.8%, AvgLoss: 0.033214, AddInfo: quantized_result_CustomSCNN_6C3-P2-128F-10F-10Steps-QuantStates
 2022-09-21 22:03:19,541:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 70.7%, AvgLoss: 0.052764, AddInfo: quantized_result_CustomSCNN_6C3-128F-10F-10Steps-quant
+2022-09-22 22:02:33,667:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 70.0%, AvgLoss: 0.071917, AddInfo: quantized_result_CustomSCNN_6C3-128F-10F-10Steps-quant
+2022-09-23 21:54:56,992:INFO:ResultsLogger:Model:CustomSCNN, EpochTrained:20, Acc: 96.4%, AvgLoss: 0.015864, AddInfo: quantized_result_CustomSCNN_6C3-128F-10F-10Steps-quant
