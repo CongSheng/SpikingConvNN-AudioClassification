@@ -14,7 +14,7 @@ from snntorch import surrogate
 from datasets import customDataset
 from models import CustomCNN, train, test
 
-EXPERIMENT_NAME = "Beta_Sparse"
+EXPERIMENT_NAME = "Timestep_Sparse"
 MODEL_NAME = "SCNN"
 LOG_PATH = "Expt/expt.log"
 PROFILE_LOG = "Expt/exptProfile.log"
@@ -23,8 +23,8 @@ MAX_SHAPE = (32,32)
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 # Search Space
-T_SPACE = [1, 4, 8, 10, 15, 18, 20, 50, 80, 100]
-THRESHOLD_SPACE = [0.0, 0.5, 0.8, 1.0, 5.0, 8.0, 10.0, 15.0]
+T_SPACE = [1, 8, 10, 15, 18, 20, 50, 100]
+THRESHOLD_SPACE = [0.0, 0.5, 1.0, 5.0, 10.0, 15.0]
 BETA_SPACE = [0, 0.2, 0.5, 0.8, 1.0]
 
 # Device config

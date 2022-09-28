@@ -26,3 +26,17 @@
 2022-09-27 17:30:56,817:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.6%, AvgLoss: 0.023619, AddInfo: Beta_Sparse0.5, Avg sparsity: 0.8794966340065002
 2022-09-27 17:38:31,628:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.2%, AvgLoss: 0.028553, AddInfo: Beta_Sparse0.8, Avg sparsity: 0.8866159319877625
 2022-09-27 17:45:25,712:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.045558, AddInfo: Beta_Sparse1.0, Avg sparsity: 0.8855773210525513
+2022-09-28 09:09:50,061:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 40.0%, AvgLoss: 0.063812, AddInfo: Threshold_Sparse0.0, Avg sparsity: 0.840617299079895
+2022-09-28 09:24:56,568:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 95.9%, AvgLoss: 0.027302, AddInfo: Threshold_Sparse0.5, Avg sparsity: 0.8671598434448242
+2022-09-28 09:39:17,504:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.027295, AddInfo: Threshold_Sparse1.0, Avg sparsity: 0.8695293068885803
+2022-09-28 09:46:19,997:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.2%, AvgLoss: 0.051319, AddInfo: Threshold_Sparse5.0, Avg sparsity: 0.8881700038909912
+2022-09-28 09:53:40,258:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 61.4%, AvgLoss: 0.093371, AddInfo: Threshold_Sparse10.0, Avg sparsity: 0.8815716505050659
+2022-09-28 10:00:19,540:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 10.5%, AvgLoss: 0.048477, AddInfo: Threshold_Sparse15.0, Avg sparsity: 0.9068182706832886
+2022-09-28 13:26:48,977:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 96.4%, AvgLoss: 0.002096, AddInfo: Timestep_Sparse1, Avg sparsity: 0.9260345697402954
+2022-09-28 13:32:32,491:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 97.9%, AvgLoss: 0.020768, AddInfo: Timestep_Sparse8, Avg sparsity: 0.9039779305458069
+2022-09-28 13:38:45,539:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 97.9%, AvgLoss: 0.035784, AddInfo: Timestep_Sparse10, Avg sparsity: 0.8809961676597595
+2022-09-28 13:45:01,146:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 97.9%, AvgLoss: 0.041719, AddInfo: Timestep_Sparse15, Avg sparsity: 0.8931577205657959
+2022-09-28 13:52:21,237:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.6%, AvgLoss: 0.044184, AddInfo: Timestep_Sparse18, Avg sparsity: 0.8938892483711243
+2022-09-28 13:59:59,078:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.2%, AvgLoss: 0.036214, AddInfo: Timestep_Sparse20, Avg sparsity: 0.8827206492424011
+2022-09-28 14:12:11,365:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.6%, AvgLoss: 0.142755, AddInfo: Timestep_Sparse50, Avg sparsity: 0.8748058080673218
+2022-09-28 14:32:05,399:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.6%, AvgLoss: 0.293412, AddInfo: Timestep_Sparse100, Avg sparsity: 0.8528198003768921
