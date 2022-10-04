@@ -14,7 +14,7 @@ from snntorch import surrogate
 from datasets import customDataset
 from models import CustomCNN, train, test
 
-EXPERIMENT_NAME = "Timestep_Sparse"
+EXPERIMENT_NAME = "Threshold_Sparse"
 MODEL_NAME = "SCNN"
 LOG_PATH = "Expt/expt.log"
 PROFILE_LOG = "Expt/exptProfile.log"

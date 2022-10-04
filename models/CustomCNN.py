@@ -89,7 +89,7 @@ class customSNetv2(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
-        self.fc1 = nn.Linear(5400, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.fc1 = nn.Linear(1350, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings, 5400 for no pool and 1 layer
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc2 = nn.Linear(128, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
@@ -110,15 +110,15 @@ class customSNetv2(nn.Module):
         mem5_rec = []
 
         for step in range(self.num_steps):
-            # cur1 = self.pool(self.conv1(x))
-            cur1 = self.conv1(x)
+            cur1 = self.pool(self.conv1(x))
+            # cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
-            # cur2 = self.pool(self.conv2(spk1))
-            # cur2 = self.conv2(spk1)
-            # spk2, mem2 = self.lif2(cur1, mem2)
             zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
             self.zeroCount += zeroCount
             self.totalSize += totalSize
+            # cur2 = self.pool(self.conv2(spk1))
+            # cur2 = self.conv2(spk1)
+            # spk2, mem2 = self.lif2(cur2, mem2)
             cur3 = self.fc1(spk1.view(batch_size_curr, -1))
             spk3, mem3 = self.lif3(cur3, mem3)
             # cur4 = self.fc2(spk3)
