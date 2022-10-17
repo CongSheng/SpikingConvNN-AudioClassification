@@ -16,6 +16,8 @@ from snntorch import functional as SF
 import ray
 from ray import tune
 from ray.tune.schedulers import ASHAScheduler
+from ray.tune.search.bayesopt import BayesOptSearch
+from ray.tune.search.hyperopt import HyperOptSearch
 import numpy as np
 from ray.air import session
 from ray.air.checkpoint import Checkpoint
@@ -25,6 +27,7 @@ MODEL_NAME = "SCNN"
 LOG_PATH = "Expt/expt.log"
 PROFILE_LOG = "Expt/exptProfile.log"
 CHECKPOINT_PATH = "Expt/checkpoints"
+ADD_INFO = "hyperStudy-default"
 NUM_CLASS= 10
 MAX_SHAPE = (32,32)
 HOP_LENGTH = 512
@@ -83,10 +86,14 @@ def trainValTestSplit(trainSplit, testSplit, fullDataset):
     return trainDs, valDs, testDs, fullDsLen, trainLen, valLen, testLen
 
 def trainValSNet(device, model, train_dl, val_dl, epoch_num, optimizer, loss_fn, num_steps,
-            train_loss_hist, train_accu_hist, checkpoint_path, modelName):
+                 checkpoint_path, modelName):
     train_loss_hist = []
     train_accu_hist = []
-    for epoch in range(epoch_num):
+    loss_fn = nn.CrossEntropyLoss()
+    for epoch in tqdm(range(epoch_num)):
+        running_loss = 0.0
+        correct = 0
+        total = 0
         iterCount = 0
         for i, (data, targets) in enumerate(iter(train_dl)):
             data = data.to(device)
@@ -99,7 +106,6 @@ def trainValSNet(device, model, train_dl, val_dl, epoch_num, optimizer, loss_fn,
             loss_val = torch.zeros((1), dtype=torch.float, device=device)
             for step in range(num_steps):
                 loss_val += loss_fn(mem_rec[step], targets)
-                print(loss_val)
 
             # Gradient calculation + weight update
             loss_val.backward()
@@ -112,38 +118,41 @@ def trainValSNet(device, model, train_dl, val_dl, epoch_num, optimizer, loss_fn,
             iterCount +=1
         print(f' Epoch: {epoch} | Train Loss: {train_loss_hist[-1]:.3f} | Accuracy: {train_accu_hist[-1]:.3f} | Iteration: {iterCount}')
 
-    val_loss = 0.0
-    val_steps = 0
-    total = 0
+    #Val Loop
+    val_loss = torch.zeros((1), dtype=torch.float, device=device)
     correct = 0
-    for i, data in enumerate(val_dl, 0):
-        with torch.no_grad():
-            inputs, labels = data
-            inputs, labels = inputs.to(device), labels.to(device)
-
-            spk_rec, mem_rec = model(data)
-            _, pred = spk_rec.sum(dim=0).max(1)
+    val_loss_hist = []
+    val_steps = 0
+    with torch.no_grad():
+        for _, (X, Y) in enumerate(val_dl):
+            X, Y = X.to(device), Y.to(device)      
+            val_spk, val_mem = model(X)
+            _, pred = val_spk.sum(dim=0).max(1)
             for step in range(num_steps):
-                    val_loss += loss_fn(spk_rec[step], labels)
-            total += labels.size(0)
-            correct += (pred==labels).type(torch.float).sum().item()
-            val_steps += 1
-    # print("-----Finished Training-----")
-    torch.save(model.state_dict(), os.path.join(
-        checkpoint_path, 'valtrain--{}-{}.chkpt'.format(modelName, epoch_num)
-    ))
-    checkpoint = Checkpoint.from_directory("my_model")
-    session.report({"loss": (val_loss / val_steps), "accuracy": correct / total}, checkpoint=checkpoint)
-    return model, train_loss_hist, train_accu_hist, iterCount
+                val_loss += loss_fn(val_mem[step], Y)
+            val_loss_hist.append(val_loss.item())
+            correct += (pred==Y).type(torch.float).sum().item()
+        val_steps+=1
+    loss_from_val = val_loss_hist[-1] / valLen
+    acc_from_val = correct / valLen
+    print(f"Loss is {loss_from_val} and acc is {acc_from_val}")
+    os.makedirs(checkpoint_path, exist_ok=True)
+    pathName = os.path.join(checkpoint_path, "checkpt.pt")
+    torch.save(
+        (model.state_dict(), optimizer.state_dict()), pathName)
+    checkpoint = Checkpoint.from_directory(checkpoint_path)
+    print()
+    session.report({"loss": loss_from_val, "accuracy": acc_from_val}, checkpoint=checkpoint)
+    return model, train_loss_hist, train_accu_hist, val_loss_hist
 
-def rayTuneTrain(config):
+def rayTuneTrain(configTune):
     # Model
-    model = CustomCNN.customSNetv2(num_steps=config["timestep"],
-                                    beta=config["beta"],
-                                    threshold=config["threshold"], 
+    model = CustomCNN.customSNetv2(num_steps=int(configTune["timestep"]),
+                                    beta=configTune["beta"],
+                                    threshold=int(configTune["threshold"]), 
                                     num_class=NUM_CLASS).to(device)
     loss_fn=nn.CrossEntropyLoss(),
-    optimizer= optim.Adam(model.parameters(), lr=config["lr"], betas=(0.9, 0.999))
+    optimizer= optim.Adam(model.parameters(), lr=configTune["lr"], betas=(0.9, 0.999))
     loaded_checkpoint = session.get_checkpoint()
     if loaded_checkpoint:
         with loaded_checkpoint.as_directory() as loaded_checkpoint_dir:
@@ -151,7 +160,16 @@ def rayTuneTrain(config):
         model.load_state_dict(model_state)
         optimizer.load_state_dict(optimizer_state)
 
-    model, train_loss_hist, train_accu_hist, iterCount = trainValSNet(device, model, train_dl, val_dl, defaultParam["epochNum"], optimizer, loss_fn, config["timestep"], train_loss_hist, train_accu_hist, defaultParam["checkpt"], "hyperTuneSCNN")
+    model, train_loss_hist, train_accu_hist, _ = trainValSNet(device, 
+                                                                        model, 
+                                                                        train_dl, 
+                                                                        val_dl, 
+                                                                        defaultParam["epochNum"], 
+                                                                        optimizer, 
+                                                                        loss_fn, 
+                                                                        int(configTune["timestep"]),  
+                                                                        defaultParam["checkpt"], 
+                                                                        "hyperTuneSCNN")
 
 def hyperTuneMain():
     if not os.path.exists(LOG_PATH):
@@ -168,9 +186,11 @@ def hyperTuneMain():
         sparseMode = True
 
     # Config
-    config = {
+    configTune = {
         "threshold": tune.sample_from(lambda _: np.random.randint(1, 9)),
         "timestep":  tune.sample_from(lambda _: np.random.randint(0, 25)),
+        # "threshold": tune.uniform(1, 9),
+        # "timestep": tune.uniform(0, 25),
         "beta":  tune.uniform(0, 1),
         "lr": tune.loguniform(1e-4, 1e-1),
     }
@@ -178,6 +198,9 @@ def hyperTuneMain():
         max_t=MAX_EPOCH,
         grace_period=1,
         reduction_factor=2)
+
+    # algo = BayesOptSearch(random_search_steps=4)
+    algo = HyperOptSearch(metric="loss", mode="min")
 
     tuner = tune.Tuner(
         tune.with_resources(
@@ -189,8 +212,9 @@ def hyperTuneMain():
             mode="min",
             scheduler=scheduler,
             num_samples=10,
+            # search_alg=algo,
         ),
-        param_space=config,
+        param_space=configTune,
     )
     results = tuner.fit()
 
@@ -202,11 +226,11 @@ def hyperTuneMain():
     print("Best trial final validation accuracy: {}".format(
         best_result.metrics["accuracy"]))
 
-    test_model = CustomCNN.customSNetv2(num_steps=best_result["timestep"],
-                                    beta=best_result["beta"],
-                                    threshold=best_result["threshold"], 
+    test_model = CustomCNN.customSNetv2(num_steps=int(best_result.config["timestep"]),
+                                    beta=best_result.config["beta"],
+                                    threshold=best_result.config["threshold"], 
                                     num_class=NUM_CLASS).to(device)
-    test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), defaultParam["timestep"], len(test_dl), defaultParam["epochNum"], MODEL_NAME, "hyperStudy", logger, profLogger, CHECKPOINT_PATH, sparseMode)
+    test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), int(best_result.config["timestep"]), testLen, defaultParam["epochNum"], MODEL_NAME, ADD_INFO, logger, profLogger, CHECKPOINT_PATH, sparseMode)
 
 if __name__ == '__main__':
     hyperTuneMain()
