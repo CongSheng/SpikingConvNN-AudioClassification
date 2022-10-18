@@ -89,7 +89,7 @@ class customSNetv2(nn.Module):
         self.pool = nn.MaxPool2d(2, 2)
         self.conv2 = nn.Conv2d(6, 16, 3)
         self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
-        self.fc1 = nn.Linear(1350, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings, 5400 for no pool and 1 layer
+        self.fc1 = nn.Linear(5400, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
         self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc2 = nn.Linear(128, 64)
         self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
@@ -110,15 +110,15 @@ class customSNetv2(nn.Module):
         mem5_rec = []
 
         for step in range(self.num_steps):
-            cur1 = self.pool(self.conv1(x))
-            # cur1 = self.conv1(x)
+            # cur1 = self.pool(self.conv1(x))
+            cur1 = self.conv1(x)
             spk1, mem1 = self.lif1(cur1, mem1)
+            # cur2 = self.pool(self.conv2(spk1))
+            # cur2 = self.conv2(spk1)
+            # spk2, mem2 = self.lif2(cur1, mem2)
             zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
             self.zeroCount += zeroCount
             self.totalSize += totalSize
-            # cur2 = self.pool(self.conv2(spk1))
-            # cur2 = self.conv2(spk1)
-            # spk2, mem2 = self.lif2(cur2, mem2)
             cur3 = self.fc1(spk1.view(batch_size_curr, -1))
             spk3, mem3 = self.lif3(cur3, mem3)
             # cur4 = self.fc2(spk3)
@@ -273,3 +273,173 @@ class qtSNet(nn.Module):
             spk5_rec.append(spk5)
             mem5_rec.append(mem5)
         return torch.stack(spk5_rec), torch.stack(mem5_rec)
+    
+    
+class ModelA(nn.Module):
+    def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
+        super().__init__()
+        self.num_steps = num_steps
+        self.zeroCount = 0
+        self.totalSize = 0
+        self.sparseRatio = 0
+        self.conv1 = nn.Conv2d(1, 6, 3)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.conv2 = nn.Conv2d(6, 16, 3)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.fc1 = nn.Linear(12544, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.fc2 = nn.Linear(128, 64)
+        self.lif4 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.fc3 = nn.Linear(64, num_class)
+        self.lif5 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+
+    def forward(self, x):
+        # Initialize hidden states and outputs at t=0
+        batch_size_curr = x.shape[0]
+        mem1 = self.lif1.init_leaky()
+        mem2 = self.lif2.init_leaky() 
+        mem3 = self.lif3.init_leaky()
+        mem4 = self.lif4.init_leaky()
+        mem5 = self.lif5.init_leaky()
+
+        # Record the final layer
+        spk5_rec = []
+        mem5_rec = []
+
+        for step in range(self.num_steps):
+            # cur1 = self.pool(self.conv1(x))
+            cur1 = self.conv1(x)
+            spk1, mem1 = self.lif1(cur1, mem1)
+            zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
+            # cur2 = self.pool(self.conv2(spk1))
+            cur2 = self.conv2(spk1)
+            spk2, mem2 = self.lif2(cur2, mem2)
+            self.zeroCount += zeroCount
+            self.totalSize += totalSize
+            cur3 = self.fc1(spk2.view(batch_size_curr, -1))
+            spk3, mem3 = self.lif3(cur3, mem3)
+            cur4 = self.fc2(spk3)
+            spk4, mem4 = self.lif4(cur4, mem4)
+            cur5 = self.fc3(spk4)
+            spk5, mem5 = self.lif5(cur5, mem5)
+            
+            spk5_rec.append(spk5)
+            mem5_rec.append(mem5)
+
+        return torch.stack(spk5_rec), torch.stack(mem5_rec)
+
+    def get_sparsity(self):
+        return self.zeroCount / self.totalSize
+
+    def getZeros(self, input):
+        totalSize = torch.numel(input)
+        nonZeroCount = torch.count_nonzero(input)
+        zeroCount = totalSize - nonZeroCount
+        sparseRatio = zeroCount/totalSize
+        return zeroCount, totalSize, sparseRatio
+    
+class ModelB(nn.Module):
+    def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
+        super().__init__()
+        self.num_steps = num_steps
+        self.zeroCount = 0
+        self.totalSize = 0
+        self.sparseRatio = 0
+        self.conv1 = nn.Conv2d(1, 6, 3)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=0.8)
+        self.fc1 = nn.Linear(5400, 128) 
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=1.0)
+        self.fc2 = nn.Linear(128, num_class)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=1.2)
+
+
+    def forward(self, x):
+        # Initialize hidden states and outputs at t=0
+        batch_size_curr = x.shape[0]
+        mem1 = self.lif1.init_leaky()
+        mem2 = self.lif2.init_leaky() 
+        mem3 = self.lif3.init_leaky()
+
+        # Record the final layer
+        spk3_rec = []
+        mem3_rec = []
+
+        for step in range(self.num_steps):
+            cur1 = self.conv1(x)
+            spk1, mem1 = self.lif1(cur1, mem1)
+            zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
+            self.zeroCount += zeroCount
+            self.totalSize += totalSize
+            
+            cur2 = self.fc1(spk1.view(batch_size_curr, -1))
+            spk2, mem2 = self.lif3(cur2, mem2)
+            cur3 = self.fc2(spk2)
+            spk3, mem3 = self.lif3(cur3, mem3)
+            
+            spk3_rec.append(spk3)
+            mem3_rec.append(mem3)
+
+        return torch.stack(spk3_rec), torch.stack(mem3_rec)
+
+    def get_sparsity(self):
+        return self.zeroCount / self.totalSize
+
+    def getZeros(self, input):
+        totalSize = torch.numel(input)
+        nonZeroCount = torch.count_nonzero(input)
+        zeroCount = totalSize - nonZeroCount
+        sparseRatio = zeroCount/totalSize
+        return zeroCount, totalSize, sparseRatio
+    
+class ModelC(nn.Module):
+    def __init__(self, num_steps, beta, threshold=1.0, spike_grad=snn.surrogate.fast_sigmoid(slope=25), num_class=10):
+        super().__init__()
+        self.num_steps = num_steps
+        self.zeroCount = 0
+        self.totalSize = 0
+        self.sparseRatio = 0
+        self.conv1 = nn.Conv2d(1, 6, 3)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.pool = nn.MaxPool2d(2, 2)
+        self.fc1 = nn.Linear(1350, 128) # 12544 for no pooling, 2704 for 1 pooling, 576 for 2 poolings
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+        self.fc2 = nn.Linear(128, num_class)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
+
+    def forward(self, x):
+        # Initialize hidden states and outputs at t=0
+        batch_size_curr = x.shape[0]
+        mem1 = self.lif1.init_leaky()
+        mem2 = self.lif2.init_leaky() 
+        mem3 = self.lif3.init_leaky()
+
+        # Record the final layer
+        spk3_rec = []
+        mem3_rec = []
+
+        for step in range(self.num_steps):
+            cur1 = self.pool(self.conv1(x))
+            spk1, mem1 = self.lif1(cur1, mem1)
+            zeroCount, totalSize, sparseRatio = self.getZeros(spk1)
+            self.zeroCount += zeroCount
+            self.totalSize += totalSize
+            
+            cur2 = self.fc1(spk1.view(batch_size_curr, -1))
+            spk2, mem2 = self.lif3(cur2, mem2)
+            cur3 = self.fc2(spk2)
+            spk3, mem3 = self.lif3(cur3, mem3)
+            
+            spk3_rec.append(spk3)
+            mem3_rec.append(mem3)
+
+        return torch.stack(spk3_rec), torch.stack(mem3_rec)
+
+    def get_sparsity(self):
+        return self.zeroCount / self.totalSize
+
+    def getZeros(self, input):
+        totalSize = torch.numel(input)
+        nonZeroCount = torch.count_nonzero(input)
+        zeroCount = totalSize - nonZeroCount
+        sparseRatio = zeroCount/totalSize
+        return zeroCount, totalSize, sparseRatio
