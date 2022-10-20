@@ -24,10 +24,10 @@ from ray.air.checkpoint import Checkpoint
 
 EXPERIMENT_NAME = "Threshold_Sparse"
 MODEL_NAME = "SCNN"
-LOG_PATH = "Expt/expt.log"
-PROFILE_LOG = "Expt/exptProfile.log"
-CHECKPOINT_PATH = "Expt/checkpoints"
-ADD_INFO = "hyperStudy-default"
+LOG_PATH = "hyperTuning/results.log"
+PROFILE_LOG = "hyperTuning/tuningPara.log"
+CHECKPOINT_PATH = "hyperTuning/checkpoints"
+ADD_INFO = "hyperStudy-ModelC-random"
 NUM_CLASS= 10
 MAX_SHAPE = (32,32)
 HOP_LENGTH = 512
@@ -47,7 +47,7 @@ defaultParam = {
     "beta":0.5,
     "epochNum":20,
     "learningRate": 0.001,
-    "checkpt":"/hyperTuning/"
+    "checkpt":"hyperTuning/"
 }
 
 # Data
@@ -138,16 +138,14 @@ def trainValSNet(device, model, train_dl, val_dl, epoch_num, optimizer, loss_fn,
     print(f"Loss is {loss_from_val} and acc is {acc_from_val}")
     os.makedirs(checkpoint_path, exist_ok=True)
     pathName = os.path.join(checkpoint_path, "checkpt.pt")
-    torch.save(
-        (model.state_dict(), optimizer.state_dict()), pathName)
+    torch.save(model.state_dict(), pathName)
     checkpoint = Checkpoint.from_directory(checkpoint_path)
-    print()
     session.report({"loss": loss_from_val, "accuracy": acc_from_val}, checkpoint=checkpoint)
     return model, train_loss_hist, train_accu_hist, val_loss_hist
 
 def rayTuneTrain(configTune):
     # Model
-    model = CustomCNN.customSNetv2(num_steps=int(configTune["timestep"]),
+    model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
                                     beta=configTune["beta"],
                                     threshold=int(configTune["threshold"]), 
                                     num_class=NUM_CLASS).to(device)
@@ -156,20 +154,20 @@ def rayTuneTrain(configTune):
     loaded_checkpoint = session.get_checkpoint()
     if loaded_checkpoint:
         with loaded_checkpoint.as_directory() as loaded_checkpoint_dir:
-           model_state, optimizer_state = torch.load(os.path.join(loaded_checkpoint_dir, "checkpoint.pt"))
+           model_state, optimizer_state = torch.load(os.path.join(loaded_checkpoint_dir, "checkpt.pt"))
         model.load_state_dict(model_state)
         optimizer.load_state_dict(optimizer_state)
 
     model, train_loss_hist, train_accu_hist, _ = trainValSNet(device, 
-                                                                        model, 
-                                                                        train_dl, 
-                                                                        val_dl, 
-                                                                        defaultParam["epochNum"], 
-                                                                        optimizer, 
-                                                                        loss_fn, 
-                                                                        int(configTune["timestep"]),  
-                                                                        defaultParam["checkpt"], 
-                                                                        "hyperTuneSCNN")
+                                                            model, 
+                                                            train_dl, 
+                                                            val_dl, 
+                                                            defaultParam["epochNum"], 
+                                                            optimizer, 
+                                                            loss_fn, 
+                                                            int(configTune["timestep"]),  
+                                                            CHECKPOINT_PATH, 
+                                                            "hyperTuneSCNN")
 
 def hyperTuneMain():
     if not os.path.exists(LOG_PATH):
@@ -199,8 +197,8 @@ def hyperTuneMain():
         grace_period=1,
         reduction_factor=2)
 
-    # algo = BayesOptSearch(random_search_steps=4)
-    algo = HyperOptSearch(metric="loss", mode="min")
+    algo = BayesOptSearch(random_search_steps=4)
+    # algo = HyperOptSearch(metric="loss", mode="min")
 
     tuner = tune.Tuner(
         tune.with_resources(
@@ -226,10 +224,14 @@ def hyperTuneMain():
     print("Best trial final validation accuracy: {}".format(
         best_result.metrics["accuracy"]))
 
-    test_model = CustomCNN.customSNetv2(num_steps=int(best_result.config["timestep"]),
+    test_model = CustomCNN.ModelC(num_steps=int(best_result.config["timestep"]),
                                     beta=best_result.config["beta"],
                                     threshold=best_result.config["threshold"], 
                                     num_class=NUM_CLASS).to(device)
+
+    state_dict = torch.load(os.path.join(best_result.checkpoint.to_directory(), "checkpt.pt"))
+    test_model.load_state_dict(state_dict)
+    profLogger.info(best_result.config)
     test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), int(best_result.config["timestep"]), testLen, defaultParam["epochNum"], MODEL_NAME, ADD_INFO, logger, profLogger, CHECKPOINT_PATH, sparseMode)
 
 if __name__ == '__main__':

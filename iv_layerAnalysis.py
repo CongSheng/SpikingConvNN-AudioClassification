@@ -23,7 +23,8 @@ def plotFilterOut(layer, input, label, figPath, nnMode):
     fig = plt.figure(figsize=(10, 8))
     plt.imshow(input.cpu().numpy().squeeze(0))
     plt.colorbar()
-    plt.rcParams['font.size'] = '16'
+    plt.rcParams['font.size'] = '24'
+
     plt.savefig(os.path.join(figPath, f"{nnMode}_input{label}.png"))
     # output = layer(input).cpu().detach().numpy()
     if nnMode == "SCNN":
@@ -38,7 +39,7 @@ def plotFilterOut(layer, input, label, figPath, nnMode):
     for i in range(output.shape[0]):
         currOut = output[i]
         _, _, percentNonZero, percentZero = countSparsity(currOut)
-        titlePlot = f"{plotType} for \"{label}\" - Zeros: {percentZero:.2f} %, Nonzeros: {percentNonZero:.2f} %"
+        titlePlot = f"{plotType} for \"{label}\" \nZeros: {percentZero:.2f} %, Nonzeros: {percentNonZero:.2f} %"
         plt.clf()
         fileName = f"{nnMode}_{label}output_filter{i}_{plotType}.png"
         print(fileName)
@@ -113,7 +114,7 @@ def layerMain(args):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    parser.add_argument('--figPath', type=str, default="featuresFigure/featureVisual", help="Path to save the figures.")
+    parser.add_argument('--figPath', type=str, default="featuresFigure/featureVisual/19_OCT", help="Path to save the figures.")
     parser.add_argument('--checkptPath', type=str, default="checkpoints/train--CustomCNN-20.chkpt", help="Path of the checkpoint.")
     parser.add_argument('--dataPath', type=str, default="None", help="Input path of data to use for visualization.")
     parser.add_argument('--nnMode', type=str, default="CNN", help="Mode of neural network.")

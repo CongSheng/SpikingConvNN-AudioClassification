@@ -81,3 +81,13 @@
 2022-10-17 16:05:54,485:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 10.0%, AvgLoss: 0.439258, AddInfo: hyperStudy-bayes, Avg sparsity: 0.8733071088790894
 2022-10-17 17:18:04,585:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 10.3%, AvgLoss: 1.167569, AddInfo: hyperStudy-hyperopt, Avg sparsity: 0.9199985861778259
 2022-10-17 17:31:59,537:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 10.7%, AvgLoss: 0.436586, AddInfo: hyperStudy-default, Avg sparsity: 0.9306694865226746
+2022-10-18 10:43:33,195:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 8.3%, AvgLoss: 0.145716, AddInfo: hyperStudy-ModelA, Avg sparsity: 0.9638760089874268
+2022-10-18 11:47:40,516:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 11.7%, AvgLoss: 0.873009, AddInfo: hyperStudy-ModelB, Avg sparsity: 0.949567973613739
+2022-10-18 12:50:32,646:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 11.3%, AvgLoss: 1.314695, AddInfo: hyperStudy-ModelC, Avg sparsity: 0.8569087982177734
+2022-10-18 14:12:21,015:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 12.7%, AvgLoss: 0.146110, AddInfo: hyperStudy-ModelB, Avg sparsity: 0.9299398064613342
+2022-10-18 15:19:23,670:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.3%, AvgLoss: 0.053574, AddInfo: hyperStudy-ModelA, Avg sparsity: 0.9252020120620728
+2022-10-19 09:17:22,617:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 97.3%, AvgLoss: 0.027395, AddInfo: hyperStudy-ModelB, Avg sparsity: 0.943108320236206
+2022-10-19 09:49:57,578:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 21.7%, AvgLoss: 0.048384, AddInfo: hyperStudy-ModelC, Avg sparsity: 0.8727342486381531
+2022-10-20 11:10:44,424:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 95.7%, AvgLoss: 0.033474, AddInfo: hyperStudy-ModelA-hyperopt, Avg sparsity: 0.9237223267555237
+2022-10-20 11:23:32,155:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.003064, AddInfo: hyperStudy-ModelB-hyperopt, Avg sparsity: 0.9357697367668152
+2022-10-20 12:12:35,969:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.036086, AddInfo: hyperStudy-ModelA-hyperopt{'threshold': 1.0617445456798285, 'timestep': 6.1843289778752055, 'beta': 0.45408863276587685, 'lr': 0.0011576025644478597}, Avg sparsity: 0.930231511592865
