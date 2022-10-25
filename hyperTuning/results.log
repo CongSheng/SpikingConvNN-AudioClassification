@@ -7,3 +7,4 @@
 2022-10-20 15:58:05,207:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.3%, AvgLoss: 0.159919, AddInfo: hyperStudy-ModelA-random, Avg sparsity: 0.9297388195991516
 2022-10-20 16:21:28,802:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 96.7%, AvgLoss: 0.165929, AddInfo: hyperStudy-ModelB-random, Avg sparsity: 0.9450374245643616
 2022-10-20 16:41:19,782:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 8.0%, AvgLoss: 0.150419, AddInfo: hyperStudy-ModelC-random, Avg sparsity: 0.9200429320335388
+2022-10-21 13:39:34,848:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 11.7%, AvgLoss: 0.155679, AddInfo: hyperStudy-ModelC-random, Avg sparsity: 0.8938260674476624

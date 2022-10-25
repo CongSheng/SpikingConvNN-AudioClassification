@@ -22,10 +22,10 @@ import numpy as np
 from ray.air import session
 from ray.air.checkpoint import Checkpoint
 
-EXPERIMENT_NAME = "Threshold_Sparse"
-MODEL_NAME = "SCNN"
-LOG_PATH = "hyperTuning/results.log"
-PROFILE_LOG = "hyperTuning/tuningPara.log"
+MODEL_NAME = "SCNN_A"
+LOG_PATH = "hyperTuning/resultsScriptRun.log"
+PROFILE_LOG = "hyperTuning/profileScriptRun.log"
+PARA_LOG = "hyperTuning/parameterScriptRun.log"
 CHECKPOINT_PATH = "hyperTuning/checkpoints"
 ADD_INFO = "hyperStudy-ModelC-random"
 NUM_CLASS= 10
@@ -34,7 +34,7 @@ HOP_LENGTH = 512
 FRAME_LENGTH = 256
 N_MFCC = 16
 MAX_EPOCH = 25
-formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
+formatter = logging.Formatter('%(asctime)s, %(levelname)s, %(name)s, %(message)s')
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 print(f"Using {device} on {torch.cuda.get_device_name(0)} :D ")
@@ -145,12 +145,25 @@ def trainValSNet(device, model, train_dl, val_dl, epoch_num, optimizer, loss_fn,
 
 def rayTuneTrain(configTune):
     # Model
-    model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
-                                    beta=configTune["beta"],
-                                    threshold=int(configTune["threshold"]), 
-                                    num_class=NUM_CLASS).to(device)
+    if "A" in MODEL_NAME:
+        model = CustomCNN.ModelA(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    elif "B" in MODEL_NAME:
+        model = CustomCNN.ModelB(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    elif "C" in MODEL_NAME:
+        model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    else:
+        print("Invalid Model")
     loss_fn=nn.CrossEntropyLoss(),
-    optimizer= optim.Adam(model.parameters(), lr=configTune["lr"], betas=(0.9, 0.999))
+    optimizer= optim.Adam(model.parameters(), lr=defaultParam['learningRate'], betas=(0.9, 0.999))
     loaded_checkpoint = session.get_checkpoint()
     if loaded_checkpoint:
         with loaded_checkpoint.as_directory() as loaded_checkpoint_dir:
@@ -172,16 +185,17 @@ def rayTuneTrain(configTune):
 def hyperTuneMain():
     if not os.path.exists(LOG_PATH):
         open(LOG_PATH, 'a').close()
+    if not os.path.exists(PARA_LOG):
+        open(PARA_LOG, 'a').close()
     if not os.path.exists(PROFILE_LOG):
         open(PROFILE_LOG, 'a').close()
     if not os.path.exists(CHECKPOINT_PATH):
         os.makedirs(CHECKPOINT_PATH)
     logger = setupLogger('ResultsLogger', LOG_PATH)
     profLogger = setupLogger("ProfileLogger", PROFILE_LOG)
+    paraLogger = setupLogger("ParaLogger", PARA_LOG)
 
-    sparseMode = False
-    if "sparse" in EXPERIMENT_NAME.lower():
-        sparseMode = True
+    sparseMode = True
 
     # Config
     configTune = {
@@ -190,7 +204,7 @@ def hyperTuneMain():
         # "threshold": tune.uniform(1, 9),
         # "timestep": tune.uniform(0, 25),
         "beta":  tune.uniform(0, 1),
-        "lr": tune.loguniform(1e-4, 1e-1),
+        # "lr": tune.loguniform(1e-4, 1e-1),
     }
     scheduler = ASHAScheduler(
         max_t=MAX_EPOCH,
@@ -206,8 +220,8 @@ def hyperTuneMain():
             resources={"cpu": 2, "gpu": 1}
         ),
         tune_config=tune.TuneConfig(
-            metric="loss",
-            mode="min",
+            metric="accuracy",
+            mode="max",
             scheduler=scheduler,
             num_samples=10,
             # search_alg=algo,
@@ -216,7 +230,7 @@ def hyperTuneMain():
     )
     results = tuner.fit()
 
-    best_result = results.get_best_result("loss", "min")
+    best_result = results.get_best_result("accuracy", "max")
 
     print("Best trial config: {}".format(best_result.config))
     print("Best trial final validation loss: {}".format(
@@ -224,14 +238,27 @@ def hyperTuneMain():
     print("Best trial final validation accuracy: {}".format(
         best_result.metrics["accuracy"]))
 
-    test_model = CustomCNN.ModelC(num_steps=int(best_result.config["timestep"]),
-                                    beta=best_result.config["beta"],
-                                    threshold=best_result.config["threshold"], 
-                                    num_class=NUM_CLASS).to(device)
-
+    if "A" in MODEL_NAME:
+        test_model = CustomCNN.ModelA(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    elif "B" in MODEL_NAME:
+        test_model = CustomCNN.ModelB(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    elif "C" in MODEL_NAME:
+        test_model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
+                                        beta=configTune["beta"],
+                                        threshold=int(configTune["threshold"]), 
+                                        num_class=NUM_CLASS).to(device)
+    else:
+        print("Invalid Model")
+    
     state_dict = torch.load(os.path.join(best_result.checkpoint.to_directory(), "checkpt.pt"))
     test_model.load_state_dict(state_dict)
-    profLogger.info(best_result.config)
+    paraLogger.info(best_result.config)
     test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), int(best_result.config["timestep"]), testLen, defaultParam["epochNum"], MODEL_NAME, ADD_INFO, logger, profLogger, CHECKPOINT_PATH, sparseMode)
 
 if __name__ == '__main__':

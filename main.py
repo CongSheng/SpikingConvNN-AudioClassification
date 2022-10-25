@@ -20,6 +20,7 @@ MAX_SHAPE = (32, 32)
 HOP_LENGTH = 512
 FRAME_LENGTH = 256
 N_MFCC = 16
+CONFUSE_PATH = "hyperTuning/confuseMatrix"
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 def trainTestSplit(trainSplit, testSplit, fullDataset):
@@ -50,6 +51,7 @@ def main(args):
     
     # Init dataset
     datasetType = args.dataset_type
+    num_classes = args.num_class
     # assert datasetType=="mfcc" or datasetType=="rmse", 'Invalid dataset type'
     if datasetType == "mfcc":
         full_ds = mfcc_dataset.MFCCDataset(args.data_path, 
@@ -59,7 +61,6 @@ def main(args):
                                             hop_length=HOP_LENGTH, 
                                             n_samples=N_MFCC)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
-        num_classes = 10
         addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
     elif datasetType == "MFCC_fixed":
         train_ds = customDataset.fetchData("transformedData/mfcc/trg")
@@ -69,7 +70,6 @@ def main(args):
         full_ds_len = train_num + test_num
         print(f"Train data: {train_num}")
         print(f"Test data: {test_num}")
-        num_classes = 10
         addInfo = f"hopLen{HOP_LENGTH}_nMFCC{N_MFCC}_{datasetType}"
     elif datasetType == "rmse":
         full_ds = customDataset.RMSEDataset(args.data_path,
@@ -79,7 +79,6 @@ def main(args):
                                             frame_length=FRAME_LENGTH,
                                             hop_length = HOP_LENGTH)
         train_ds, test_ds, full_ds_len, train_num, test_num = trainTestSplit(args.train_partition, args.test_partition, full_ds)
-        num_classes = 10
         addInfo = f"hopLen{HOP_LENGTH}_frameLen{FRAME_LENGTH}_{datasetType}"
     elif datasetType == "speechcommand":
         SAMPLE_RATE = 16000
@@ -148,7 +147,7 @@ def main(args):
         model_full = AlexCNN.AlexSpikingNet(device, 0.5, surrogate.fast_sigmoid(slope=0.75))
         model = model_full.net
     elif modelName == "CustomSCNN":
-        model = CustomCNN.customSNet(args.num_steps, 0.5, num_class = num_classes).to(device)
+        model = CustomCNN.ModelA(args.num_steps, 0.5, num_class = num_classes).to(device)
     elif modelName == "CustomSCNN2":
         model = CustomCNN.customSNetv2(args.num_steps, 0.5, num_class = num_classes).to(device)
     else:
@@ -191,7 +190,8 @@ def main(args):
     # Test
     if args.test=="Y":
         if modelName == "AlexSCNN" or modelName == "CustomSCNN" or modelName=="CustomSCNN2":
-            test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
+            test.testSNet_confuse(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, CONFUSE_PATH, profLogger, checkpoint_path)
+            # test.testSNet(model, test_dl, device, criterion, args.num_steps, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
         else:
             test.testNet(model, test_dl, device, criterion, test_num, epoch_num, modelName, addInfo, logger, profLogger, checkpoint_path)
         # model.eval()
@@ -231,6 +231,7 @@ if __name__ == '__main__':
     parser.add_argument('--test_partition', type=float, default=0.2, help="Fraction of dataset for testing (0-1)")
     parser.add_argument('--channel_in', type=int, default=1, help="Number of channel for model input")
     parser.add_argument('--num_epochs', type=int, default=5)
+    parser.add_argument('--num_class', type=int, default=10, help="Number of classes in dataset.")
     parser.add_argument('--num_steps', type=int, default=10, help="Number of time steps for spiking version")
     parser.add_argument('--batch_size', type=int, default=16)
     parser.add_argument('--learning_rate', type=float, default=0.001)

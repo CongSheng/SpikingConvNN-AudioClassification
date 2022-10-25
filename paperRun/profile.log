@@ -1,0 +1,450 @@
+2022-10-25 11:24:21,278, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 11:32:03,892, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 11:39:17,335, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 11:45:49,177, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 11:52:17,062, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 11:58:43,870, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 12:36:26,785, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 12:43:20,448, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 12:50:16,790, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 12:57:07,671, INFO, ProfileLogger, Model:SCNN_A, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.374G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.108G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.257G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.311M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.102M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-25 13:33:14,288, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 13:39:42,983, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 13:46:08,548, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 13:52:46,369, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:00:23,936, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:06:55,842, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:13:04,476, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:19:07,960, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:25:37,873, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 14:32:23,358, INFO, ProfileLogger, Model:SCNN_B, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.119G   |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.111G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:02:22,167, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:08:30,584, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:15:18,185, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:22:01,519, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:28:27,673, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:34:46,170, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:41:43,216, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:49:07,518, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 15:56:44,959, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-25 16:03:12,301, INFO, ProfileLogger, Model:SCNN_C, AddInfo: scriptRun
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.174M                 | 35.629M  |
+|  conv1         |  60                    |  7.776M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.173M                |  27.648M |
+|   fc1.weight   |   (128, 1350)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.205M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |

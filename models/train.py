@@ -57,17 +57,18 @@ def trainSNet(device, model, train_dl, epoch_num, optimizer, loss_fn, num_steps,
             optimizer.step()
 
             # Store loss history for future plotting
+            avg_loss = loss_val.item()/len(train_dl)
             train_loss_hist.append(loss_val.item())
             acc = SF.accuracy_rate(spk_rec, targets) 
             train_accu_hist.append(acc)
             iterCount +=1
-        print(f' Epoch: {epoch} | Train Loss: {train_loss_hist[-1]:.3f} | Accuracy: {train_accu_hist[-1]:.3f} | Iteration: {iterCount}')
+        print(f' Epoch: {epoch} | Train Loss: {train_loss_hist[-1]:.3f} | Avg Loss: {avg_loss:.3f} | Accuracy: {train_accu_hist[-1]:.3f} | Iteration: {iterCount}')
 
     print("-----Finished Training-----")
     torch.save(model.state_dict(), os.path.join(
         checkpoint_path, 'train--{}-{}.chkpt'.format(modelName, epoch_num)
     ))
-    return model, train_loss_hist, train_accu_hist, iterCount
+    return model, train_loss_hist, train_accu_hist, iterCount, avg_loss
         
 def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, addInfo=None, gradClip=False, weightClip=False, device="cpu", scheduler=None, checkpoint_path=None):
     """Complete one epoch of training."""
@@ -100,12 +101,13 @@ def qatrainSNet(net, epochNum, stepNum, trainloader, criterion, optimizer, addIn
             optimizer.step()
             scheduler.step()
             lossHist.append(loss_val.item())
+            avg_loss =  loss_val.item()/len(trainloader)
             lrHist.append(optimizer.param_groups[0]["lr"])
         acc = SF.accuracy_rate(spk_rec, labels) 
         accuHist.append(acc)
-        print(f' Epoch: {epoch} | Train Loss: {lossHist[-1]:.3f} | Accuracy: {acc:.3f}')
+        print(f' Epoch: {epoch} | Train Loss: {lossHist[-1]:.3f} | Avg Loss: {avg_loss:.3f} | Accuracy: {acc:.3f}')
     print("-----Finished Training-----")
     if checkpoint_path is not None:
         torch.save(net.state_dict(), os.path.join(checkpoint_path, f'train-qtModel-{epochNum}-{addInfo}.chkpt'))
-    return net, lossHist, lrHist
+    return net, lossHist, lrHist, avg_loss
     
