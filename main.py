@@ -147,7 +147,7 @@ def main(args):
         model_full = AlexCNN.AlexSpikingNet(device, 0.5, surrogate.fast_sigmoid(slope=0.75))
         model = model_full.net
     elif modelName == "CustomSCNN":
-        model = CustomCNN.ModelA(args.num_steps, 0.5, num_class = num_classes).to(device)
+        model = CustomCNN.ModelB(args.num_steps, 0.5, num_class = num_classes).to(device)
     elif modelName == "CustomSCNN2":
         model = CustomCNN.customSNetv2(args.num_steps, 0.5, num_class = num_classes).to(device)
     else:
@@ -174,7 +174,7 @@ def main(args):
         spikingMode = True
         numSteps = args.num_steps
         addInfo = f"{addInfo}_{numSteps}Steps"
-        model, train_loss_hist, train_accu_hist, iterCount = train.trainSNet(device, model, train_dl, 
+        model, train_loss_hist, train_accu_hist, iterCount, avg_loss = train.trainSNet(device, model, train_dl, 
                                                             epoch_num, optimizer, criterion, args.num_steps,
                                                             train_loss_hist, train_accu_hist, 
                                                             checkpoint_path, modelName)

@@ -114,19 +114,23 @@ def testSNet_confuse(sModel, testDataLoader, device,
         logMessage = f"{logMessage}, Avg sparsity: {sum(sparseHist)/len(sparseHist)}"
     print(logMessage)
     testLogger.info(logMessage)
-    #classes = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
-    classes = ("0", "1")
-    class_str = ("no", "yes")
+    classes = ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9')
+    #classes = ("0", "1")
+    #class_str = ("no", "yes")
     cf_matrix = confusion_matrix(y_true, y_pred)
     print(cf_matrix)
     print(np.sum(cf_matrix))
     classCount = [y_true.count(int(i)) for i in classes]
     print(classCount)
-    cf_matrix_df = pd.DataFrame(cf_matrix/(classCount), index = [i for i in class_str],
-                     columns = [i for i in class_str])
+    print(np.transpose([classCount] * 10))
+    cf_matrix_df = pd.DataFrame(cf_matrix/np.transpose([classCount] * 10), index = [i for i in classes],
+                     columns = [i for i in classes])
+    
+
     plt.figure(figsize=(12,7))
     plt.rcParams['font.size'] = '18'   
     sn.heatmap(cf_matrix_df, annot=True)
+    plt.tight_layout()
     plt.savefig(os.path.join(confusePath, addInfo))
     print("SAVE FIG OI")
     if profLogger is not None:

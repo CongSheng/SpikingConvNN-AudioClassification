@@ -346,11 +346,11 @@ class ModelB(nn.Module):
         self.totalSize = 0
         self.sparseRatio = 0
         self.conv1 = nn.Conv2d(1, 6, 3)
-        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=0.8)
+        self.lif1 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc1 = nn.Linear(5400, 128) 
-        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=1.0)
+        self.lif2 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
         self.fc2 = nn.Linear(128, num_class)
-        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=1.2)
+        self.lif3 = snn.Leaky(beta=beta, spike_grad=spike_grad, threshold=threshold)
 
 
     def forward(self, x):

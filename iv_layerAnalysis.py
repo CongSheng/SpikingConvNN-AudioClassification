@@ -14,14 +14,14 @@ INPUT_SHAPE = (32, 32)
 
 def countSparsity(arrayIn):
     nonZeroCount = np.count_nonzero(arrayIn)
-    zeroCount = np.count_nonzero(arrayIn==0)
+    zeroCount = np.count_nonzero(arrayIn==0.0)
     nonZeroPercent = nonZeroCount / arrayIn.size * 100
     zeroPercent = zeroCount / arrayIn.size * 100
     return nonZeroCount, zeroCount, nonZeroPercent, zeroPercent
 
 def plotFilterOut(layer, input, label, figPath, nnMode):
     fig = plt.figure(figsize=(10, 8))
-    plt.imshow(input.cpu().numpy().squeeze(0))
+    plt.imshow(input.cpu().numpy().squeeze(0), cmap="magma")
     plt.colorbar()
     plt.rcParams['font.size'] = '24'
 
@@ -35,15 +35,16 @@ def plotFilterOut(layer, input, label, figPath, nnMode):
     else:
         plotType = "MFCC"
         output = layer(input).cpu().detach().numpy()
+        plotType = "MFCC"
     print(f"Output Shape: {output.shape}")
     for i in range(output.shape[0]):
         currOut = output[i]
-        _, _, percentNonZero, percentZero = countSparsity(currOut)
+        _, _, percentNonZero, percentZero = countSparsity(currOut)        
         titlePlot = f"{plotType} for \"{label}\" \nZeros: {percentZero:.2f} %, Nonzeros: {percentNonZero:.2f} %"
         plt.clf()
         fileName = f"{nnMode}_{label}output_filter{i}_{plotType}.png"
         print(fileName)
-        plt.imshow(currOut)
+        plt.imshow(currOut, cmap="magma")
         plt.colorbar()
         plt.title(titlePlot)
         plt.savefig(os.path.join(figPath, fileName))

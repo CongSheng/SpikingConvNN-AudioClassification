@@ -1,0 +1,1243 @@
+2022-10-26 16:05:43,329, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.562G   |
+|  conv1         |  60                    |  11.664M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.163G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.385G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.966M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.154M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-26 16:49:51,145, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.365G   |
+|  conv1         |  60                    |  7.582M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.106G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.25G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.278M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  99.84K  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 10:58:48,024, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.646G   |
+|  conv1         |  60                    |  13.414M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.187G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.443G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.261M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.177M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:36:47,062, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.393G   |
+|  conv1         |  60                    |  8.165M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.114G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.27G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.376M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.108M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:49:09,569, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:49:09,569, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:58:50,917, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.477G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.138G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.328G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.671M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.131M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:58:50,917, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.477G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.138G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.328G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.671M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.131M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 11:58:50,917, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.477G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.138G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.328G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.671M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.131M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 12:48:39,226, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.506G   |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.146G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.347G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.769M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.138M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 12:48:39,226, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.506G   |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.146G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.347G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.769M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.138M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 12:48:39,226, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.506G   |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.146G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.347G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.769M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.138M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 12:48:39,226, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.506G   |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.146G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.347G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.769M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.138M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:00:06,367, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:00:06,367, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:00:06,367, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:00:06,367, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:00:06,367, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:10:13,602, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.59G    |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.171G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.405G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.064M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.161M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:24:06,374, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.674G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.195G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.462G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.359M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.184M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:35:56,704, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.618G   |
+|  conv1         |  60                    |  12.83M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.179G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.424G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  2.163M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.169M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 13:57:03,416, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.197G   |
+|  conv1         |  60                    |  4.082M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  56.9M   |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.135G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  0.688M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  53.76K  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:10:11,455, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.281G   |
+|  conv1         |  60                    |  5.832M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  81.285M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.193G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  0.983M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  76.8K   |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:10:11,455, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.281G   |
+|  conv1         |  60                    |  5.832M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  81.285M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.193G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  0.983M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  76.8K   |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:25:31,398, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.337G   |
+|  conv1         |  60                    |  6.998M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  97.542M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.231G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.18M   |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  92.16K  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:25:31,398, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.337G   |
+|  conv1         |  60                    |  6.998M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  97.542M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.231G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.18M   |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  92.16K  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:25:31,398, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.337G   |
+|  conv1         |  60                    |  6.998M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  97.542M |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.231G  |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.18M   |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  92.16K  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:34:19,395, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.393G   |
+|  conv1         |  60                    |  8.165M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.114G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.27G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.376M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.108M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:34:19,395, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.393G   |
+|  conv1         |  60                    |  8.165M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.114G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.27G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.376M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.108M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:34:19,395, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.393G   |
+|  conv1         |  60                    |  8.165M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.114G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.27G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.376M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.108M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:34:19,395, INFO, ProfileLogger, Model:SCNN_A, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 1.616M                 | 0.393G   |
+|  conv1         |  60                    |  8.165M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  conv2         |  0.88K                 |  0.114G  |
+|   conv2.weight |   (16, 6, 3, 3)        |          |
+|   conv2.bias   |   (16,)                |          |
+|  fc1           |  1.606M                |  0.27G   |
+|   fc1.weight   |   (128, 12544)         |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  8.256K                |  1.376M  |
+|   fc2.weight   |   (64, 128)            |          |
+|   fc2.bias     |   (64,)                |          |
+|  fc3           |  0.65K                 |  0.108M  |
+|   fc3.weight   |   (10, 64)             |          |
+|   fc3.bias     |   (10,)                |          |
+2022-10-27 14:51:04,863, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.187G   |
+|  conv1         |  60                    |  12.247M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.174G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.323M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:00:16,770, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.169G   |
+|  conv1         |  60                    |  11.081M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.158G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.292M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:09:30,915, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.178G   |
+|  conv1         |  60                    |  11.664M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.166G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.307M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:18:23,784, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.178G   |
+|  conv1         |  60                    |  11.664M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.166G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.307M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:27:24,054, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.133G   |
+|  conv1         |  60                    |  8.748M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.124G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.23M   |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:36:49,712, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 62.251M  |
+|  conv1         |  60                    |  4.082M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  58.061M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.108M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:45:23,201, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.151G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.141G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.261M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 15:53:42,136, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.151G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.141G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.261M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:02:26,309, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.169G   |
+|  conv1         |  60                    |  11.081M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.158G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.292M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:10:44,395, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.205G   |
+|  conv1         |  60                    |  13.414M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.191G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.353M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:19:21,557, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 88.93M   |
+|  conv1         |  60                    |  5.832M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  82.944M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.154M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:28:26,849, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.16G    |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.149G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.276M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:36:40,108, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.16G    |
+|  conv1         |  60                    |  10.498M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.149G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.276M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:46:49,912, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 71.144M  |
+|  conv1         |  60                    |  4.666M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  66.355M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.123M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 16:54:33,504, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.133G   |
+|  conv1         |  60                    |  8.748M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.124G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.23M   |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:01:46,106, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 97.823M  |
+|  conv1         |  60                    |  6.415M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  91.238M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.169M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:09:08,329, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 71.144M  |
+|  conv1         |  60                    |  4.666M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  66.355M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.123M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:17:28,333, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.213G   |
+|  conv1         |  60                    |  13.997M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.199G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.369M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:25:07,019, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.205G   |
+|  conv1         |  60                    |  13.414M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.191G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.353M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:33:37,354, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 71.144M  |
+|  conv1         |  60                    |  4.666M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  66.355M |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.123M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:42:11,375, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.178G   |
+|  conv1         |  60                    |  11.664M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.166G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.307M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:51:01,083, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.151G   |
+|  conv1         |  60                    |  9.914M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.141G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.261M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 17:58:10,326, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 80.037M  |
+|  conv1         |  60                    |  5.249M  |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  74.65M  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.138M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |
+2022-10-27 18:04:45,339, INFO, ProfileLogger, Model:SCNN_B, AddInfo: hyperStudy-ModelA-hyperOPT
+ | module         | #parameters or shape   | #flops   |
+|:---------------|:-----------------------|:---------|
+| model          | 0.693M                 | 0.205G   |
+|  conv1         |  60                    |  13.414M |
+|   conv1.weight |   (6, 1, 3, 3)         |          |
+|   conv1.bias   |   (6,)                 |          |
+|  fc1           |  0.691M                |  0.191G  |
+|   fc1.weight   |   (128, 5400)          |          |
+|   fc1.bias     |   (128,)               |          |
+|  fc2           |  1.29K                 |  0.353M  |
+|   fc2.weight   |   (10, 128)            |          |
+|   fc2.bias     |   (10,)                |          |

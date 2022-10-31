@@ -22,12 +22,12 @@ import numpy as np
 from ray.air import session
 from ray.air.checkpoint import Checkpoint
 
-MODEL_NAME = "SCNN_A"
+MODEL_NAME = "SCNN_B"
 LOG_PATH = "hyperTuning/resultsScriptRun.log"
 PROFILE_LOG = "hyperTuning/profileScriptRun.log"
 PARA_LOG = "hyperTuning/parameterScriptRun.log"
 CHECKPOINT_PATH = "hyperTuning/checkpoints"
-ADD_INFO = "hyperStudy-ModelC-random"
+ADD_INFO = "hyperStudy-ModelA-hyperOPT"
 NUM_CLASS= 10
 MAX_SHAPE = (32,32)
 HOP_LENGTH = 512
@@ -67,7 +67,6 @@ train_dl = DataLoader(train_ds, defaultParam["batchsize"], shuffle=True)
 val_dl = DataLoader(val_ds, batch_size=defaultParam["batchsize"], shuffle=True)
 test_dl = DataLoader(test_ds, defaultParam["batchsize"], shuffle=True)
 
-
 def setupLogger(name, logPath, level=logging.INFO):
     handler = logging.FileHandler(logPath)
     handler.setFormatter(formatter)
@@ -75,6 +74,18 @@ def setupLogger(name, logPath, level=logging.INFO):
     logger.setLevel(level)
     logger.addHandler(handler)
     return logger
+
+if not os.path.exists(LOG_PATH):
+    open(LOG_PATH, 'a').close()
+if not os.path.exists(PARA_LOG):
+    open(PARA_LOG, 'a').close()
+if not os.path.exists(PROFILE_LOG):
+    open(PROFILE_LOG, 'a').close()
+if not os.path.exists(CHECKPOINT_PATH):
+    os.makedirs(CHECKPOINT_PATH)
+logger = setupLogger('ResultsLogger', LOG_PATH)
+profLogger = setupLogger("ProfileLogger", PROFILE_LOG)
+paraLogger = setupLogger("ParaLogger", PARA_LOG)
 
 def trainValTestSplit(trainSplit, testSplit, fullDataset):
     fullDsLen = fullDataset.__len__()
@@ -148,17 +159,17 @@ def rayTuneTrain(configTune):
     if "A" in MODEL_NAME:
         model = CustomCNN.ModelA(num_steps=int(configTune["timestep"]),
                                         beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+                                        threshold=float(configTune["threshold"]), 
                                         num_class=NUM_CLASS).to(device)
     elif "B" in MODEL_NAME:
         model = CustomCNN.ModelB(num_steps=int(configTune["timestep"]),
                                         beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+                                        threshold=float(configTune["threshold"]), 
                                         num_class=NUM_CLASS).to(device)
     elif "C" in MODEL_NAME:
         model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
                                         beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+                                        threshold=float(configTune["threshold"]), 
                                         num_class=NUM_CLASS).to(device)
     else:
         print("Invalid Model")
@@ -183,26 +194,14 @@ def rayTuneTrain(configTune):
                                                             "hyperTuneSCNN")
 
 def hyperTuneMain():
-    if not os.path.exists(LOG_PATH):
-        open(LOG_PATH, 'a').close()
-    if not os.path.exists(PARA_LOG):
-        open(PARA_LOG, 'a').close()
-    if not os.path.exists(PROFILE_LOG):
-        open(PROFILE_LOG, 'a').close()
-    if not os.path.exists(CHECKPOINT_PATH):
-        os.makedirs(CHECKPOINT_PATH)
-    logger = setupLogger('ResultsLogger', LOG_PATH)
-    profLogger = setupLogger("ProfileLogger", PROFILE_LOG)
-    paraLogger = setupLogger("ParaLogger", PARA_LOG)
-
     sparseMode = True
 
     # Config
     configTune = {
-        "threshold": tune.sample_from(lambda _: np.random.randint(1, 9)),
-        "timestep":  tune.sample_from(lambda _: np.random.randint(0, 25)),
-        # "threshold": tune.uniform(1, 9),
-        # "timestep": tune.uniform(0, 25),
+        # "threshold": tune.sample_from(lambda _: np.random.randint(1, 9)),
+        # "timestep":  tune.sample_from(lambda _: np.random.randint(0, 25)),
+        "threshold": tune.uniform(0, 5),
+        "timestep": tune.uniform(0, 25),
         "beta":  tune.uniform(0, 1),
         # "lr": tune.loguniform(1e-4, 1e-1),
     }
@@ -211,20 +210,20 @@ def hyperTuneMain():
         grace_period=1,
         reduction_factor=2)
 
-    algo = BayesOptSearch(random_search_steps=4)
-    # algo = HyperOptSearch(metric="loss", mode="min")
+    # algo = BayesOptSearch(random_search_steps=4)
+    algo = HyperOptSearch(metric="accuracy", mode="max")
 
     tuner = tune.Tuner(
         tune.with_resources(
             tune.with_parameters(rayTuneTrain),
-            resources={"cpu": 2, "gpu": 1}
+            resources={"cpu": 4, "gpu": 1}
         ),
         tune_config=tune.TuneConfig(
             metric="accuracy",
             mode="max",
             scheduler=scheduler,
             num_samples=10,
-            # search_alg=algo,
+            search_alg=algo,
         ),
         param_space=configTune,
     )
@@ -237,29 +236,35 @@ def hyperTuneMain():
         best_result.metrics["loss"]))
     print("Best trial final validation accuracy: {}".format(
         best_result.metrics["accuracy"]))
+    best_threshold = best_result.config["threshold"]
+    best_time = best_result.config["timestep"]
+    best_beta = best_result.config["beta"]
+    print(f"Threshold = {best_threshold}, type = {type(best_threshold)}")
 
     if "A" in MODEL_NAME:
-        test_model = CustomCNN.ModelA(num_steps=int(configTune["timestep"]),
-                                        beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+        test_model = CustomCNN.ModelA(num_steps=int(best_result.config["timestep"]),
+                                        beta=best_result.config["beta"],
+                                        threshold=best_threshold, 
                                         num_class=NUM_CLASS).to(device)
     elif "B" in MODEL_NAME:
-        test_model = CustomCNN.ModelB(num_steps=int(configTune["timestep"]),
-                                        beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+        test_model = CustomCNN.ModelB(num_steps=int(best_result.config["timestep"]),
+                                        beta=best_result.config["beta"],
+                                        threshold=best_threshold,
                                         num_class=NUM_CLASS).to(device)
     elif "C" in MODEL_NAME:
-        test_model = CustomCNN.ModelC(num_steps=int(configTune["timestep"]),
-                                        beta=configTune["beta"],
-                                        threshold=int(configTune["threshold"]), 
+        test_model = CustomCNN.ModelC(num_steps=int(best_result.config["timestep"]),
+                                        beta=best_result.config["beta"],
+                                        threshold=best_threshold, 
                                         num_class=NUM_CLASS).to(device)
     else:
         print("Invalid Model")
-    
-    state_dict = torch.load(os.path.join(best_result.checkpoint.to_directory(), "checkpt.pt"))
-    test_model.load_state_dict(state_dict)
-    paraLogger.info(best_result.config)
-    test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), int(best_result.config["timestep"]), testLen, defaultParam["epochNum"], MODEL_NAME, ADD_INFO, logger, profLogger, CHECKPOINT_PATH, sparseMode)
+    best_checkpoint_path = os.path.join(best_result.checkpoint.to_directory(), "checkpt.pt")
+    if best_checkpoint_path is not None:
+        state_dict = torch.load(best_checkpoint_path)
+        test_model.load_state_dict(state_dict)
+        paraLogger.info(best_result.config)
+        test.testSNet(test_model, test_dl, device, nn.CrossEntropyLoss(), int(best_result.config["timestep"]), testLen, defaultParam["epochNum"], MODEL_NAME, ADD_INFO, logger, profLogger, CHECKPOINT_PATH, sparseMode)
 
 if __name__ == '__main__':
-    hyperTuneMain()
+    for i in range(30):
+        hyperTuneMain()

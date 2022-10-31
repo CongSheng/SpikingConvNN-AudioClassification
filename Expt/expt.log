@@ -90,4 +90,4 @@
 2022-10-19 09:49:57,578:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 21.7%, AvgLoss: 0.048384, AddInfo: hyperStudy-ModelC, Avg sparsity: 0.8727342486381531
 2022-10-20 11:10:44,424:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 95.7%, AvgLoss: 0.033474, AddInfo: hyperStudy-ModelA-hyperopt, Avg sparsity: 0.9237223267555237
 2022-10-20 11:23:32,155:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.003064, AddInfo: hyperStudy-ModelB-hyperopt, Avg sparsity: 0.9357697367668152
-2022-10-20 12:12:35,969:INFO:ResultsLogger:Model:SCNN, EpochTrained:20, Acc: 98.0%, AvgLoss: 0.036086, AddInfo: hyperStudy-ModelA-hyperopt{'threshold': 1.0617445456798285, 'timestep': 6.1843289778752055, 'beta': 0.45408863276587685, 'lr': 0.0011576025644478597}, Avg sparsity: 0.930231511592865
+
