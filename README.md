@@ -4,8 +4,12 @@ Published in IEEE International Symposium on Circuits and Systems 2023 (ISCAS 20
 ![Vector for image](https://github.com/CongSheng/Research/blob/4e846fa81fe949b0dbbe98b45d2c19e26beb617b/figures/Vector(JPEG).jpg)
 
 Abstract: Convolutional neural networks (CNNs) have shown to be effective for audio classification. However, deep CNNs can be computationally heavy and unsuitable for edge intelligence as embedded devices are generally constrained by memory and energy requirements. Spiking neural networks (SNNs) offer potential as energy-efficient networks but typically underperform typical deep neural networks in accuracy. This paper proposes a spiking convolutional neural network (SCNN) that exhibits excellent accuracy of above 98 % on a multi-class audio classification task. Accuracy remains high with weight quantization to INT8- precision. Additionally, this paper examines the role of neuron pagit rameters in co-optimizing activation sparsity and accuracy.
-
-
+![Model A Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelA.jpg)
+*Model A Network (SCNN).*
+![Model B Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelB.jpg)
+*Model B Network (SCNN).*
+![Training Loss](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/Output%20Plots/accLoss.png)
+*Training loss plot against training epochs.*
 ##  Table of Content
 1. [Structure](#Structure)
 2. [Installation](#Installation)
