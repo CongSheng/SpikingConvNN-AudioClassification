@@ -1,0 +1,1 @@
+#   Sparsity through Spiking Convolutional Neural Network (SCNN) for Audio Classification at the Edge

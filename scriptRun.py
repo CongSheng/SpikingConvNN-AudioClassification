@@ -12,11 +12,11 @@ from snntorch import surrogate
 from datasets import customDataset
 from models import CustomCNN, train, test
 
-MODEL_NAME = "SCNN_B_CHECK"
-TRAIN_LOG_PATH = "paperRun/train.log"
-TEST_LOG_PATH = "paperRun/test.log"
-PROFILE_LOG = "paperRun/profile.log"
-CHECKPOINT_PATH = "paperRun/checkpoints"
+MODEL_NAME = "SCNN_B"
+TRAIN_LOG_PATH = "logs/train.log"
+TEST_LOG_PATH = "logs/test.log"
+PROFILE_LOG = "logs/profile.log"
+CHECKPOINT_PATH = "checkpoints"
 MAX_SHAPE = (32,32)
 NUM_CLASSES = 10
 NUM_ITER = 50
