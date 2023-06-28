@@ -20,7 +20,7 @@ MAX_SHAPE = (32, 32)
 HOP_LENGTH = 512
 FRAME_LENGTH = 256
 N_MFCC = 16
-CONFUSE_PATH = "hyperTuning/confuseMatrix"
+CONFUSE_PATH = "figures"
 formatter = logging.Formatter('%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 
 def trainTestSplit(trainSplit, testSplit, fullDataset):

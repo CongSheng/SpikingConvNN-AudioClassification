@@ -212,7 +212,7 @@ written within the `argparse`'s `-help` section.
 `i_print_dict.py`: Used to visualize dictionaries, such as the checkpoints.\
 `ii_spikingTest.py`: Used to visualize spiking neurons through printed plot.\
 `iii_quantize.py`: Used for Quantized-Aware-Training (QAT).\
-`iv_layerAnalysis`: Used to visualize and analysis layer's weights and output.\
+`iv_layerAnalysis`: Used to visualize and analysis layer's weights and output.
 
 **Non-numbered Scripts**\
 `automatedSearch`: Validation/Search through neuron parameters using *Tune*.\
@@ -238,7 +238,12 @@ modification directly on the script.
 This work is built upon the great works of others, some of them are listed below.
 However, for the full list of references, please do refer to the bibliography
 of the original publication. Do also cite this work if you think it is helpful
-in your work!
+in your work!\
+
+C. S. Leow, W. L. Goh, and Y. Gao, “Sparsity through spiking convolutional neural network for audio classification at the edge,” IEEE
+Int. Symp. Circuits Syst. (ISCAS), 2023, pp. 1‑5.\
+
+[Citation will be updated once proceeding becomes available.]\
 
 Other useful works:\
 snnTorch: https://github.com/jeshraghian/snntorch/tree/master \
