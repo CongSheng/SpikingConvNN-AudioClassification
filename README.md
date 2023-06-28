@@ -67,12 +67,12 @@ Abstract: Convolutional neural networks (CNNs) have shown to be effective for au
         </tr>
     </tbody>
 </table>
-*Table showing the results for the model. Benchmark table available in original 
-paper.*
+Table showing the results for the model. Benchmark table available in original 
+paper.
 
 ##  Table of Content
 1. [Structure](#Structure)
-2. [Installation](#Installation)
+2. [Dependencies](#Dependencies)
 3. [Usage](#Usage)
 4. [Scripts](#Scripts)
 5. [Future Work](#Future_Work)
@@ -95,9 +95,7 @@ C:.
 │   README.md
 │   requirements.txt
 │   scriptRun.py
-│   tree.txt
-│   [ISCAS] CNN with Spikes for Voice Keyword Classification at the Edge Draft 1.0.pdf
-│   
+││   
 ├───checkpoints    
 |    
 ├───datasets
@@ -160,7 +158,7 @@ C:.
 │   │   __init__.py
 ```
 
-## Installation
+## Dependencies
 It recommended for this to be run on [docker](https://www.docker.com/) or a 
 [virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Click on the above links to get started. 
 ```
@@ -168,7 +166,7 @@ connda install pip
 conda install -file requirements.txt
 ```
 or `$cond acreate --name <environment_name> -- file requirements.txt` to create
-new enivronment with the files ready.
+a new enivronment with the packages ready.
 
 ## Usage
 The whole repository can be divided in several levels:
@@ -217,7 +215,7 @@ written within the `argparse`'s `-help` section. \
 `iv_layerAnalysis`: Used to visualize and analysis layer's weights and output.\
 
 **Non-numbered Scripts**\
-`automatedSearch`: Validation/Search through neuron parameters using *Tune*.
+`automatedSearch`: Validation/Search through neuron parameters using *Tune*.\
 ![Automated Search](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/combined_search.png)
 *Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*
 `feature_exploration.py`: Used to explore different features on a single audio.\
