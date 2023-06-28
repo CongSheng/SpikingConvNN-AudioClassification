@@ -5,7 +5,7 @@ Published in IEEE International Symposium on Circuits and Systems 2023 (ISCAS 20
 
 Abstract: Convolutional neural networks (CNNs) have shown to be effective for audio classification. However, deep CNNs can be computationally heavy and unsuitable for edge intelligence as embedded devices are generally constrained by memory and energy requirements. Spiking neural networks (SNNs) offer potential as energy-efficient networks but typically underperform typical deep neural networks in accuracy. This paper proposes a spiking convolutional neural network (SCNN) that exhibits excellent accuracy of above 98 % on a multi-class audio classification task. Accuracy remains high with weight quantization to INT8- precision. Additionally, this paper examines the role of neuron pagit rameters in co-optimizing activation sparsity and accuracy.
 ![Model A Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelA.jpg)
-*Fig 1: Model A Network (SCNN) inspired by the original CNN used for FSDD.*
+*Fig 1: Model A Network (SCNN) inspired by the original CNN used for Free spoken digit dataset or FSDD.*
 ![Model B Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelB.jpg)
 *Fig 2: Model B Network (SCNN) with leaner architecture than model A.*
 ![Training Loss](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/Output%20Plots/accLoss.png)
@@ -75,8 +75,8 @@ paper.
 2. [Dependencies](#Dependencies)
 3. [Usage](#Usage)
 4. [Scripts](#Scripts)
-5. [Future Work](#Future_Work)
-6. [Acknowledgements](#Acknowledgements)
+5. [Future Work](#Future-works)
+6. [Citations and Acknowledgements](#Citations_and_Acknowledgements)
 
 ## Structure
 ```
@@ -230,20 +230,24 @@ the accuracy and sparasity.\
 modification directly on the script.
 
 ## Future Works
+This project is limited in its scope and more can be done to improve it. Some of
+the future directions include:
 1. Implemention and test of hardware implementation.
 2. Multi-objective optimization (Accuracy, sparsity and hardware resources).
 3. Online optimization.
 
-## Acknowledgements
-This work is built upon the great works of others, some of them are listed below.
-However, for the full list of references, please do refer to the bibliography
-of the original publication. Do also cite this work if you think it is helpful
-in your work! If you have any questions or feedback, do email me (leowcs AT umich.edu) or drop me a Linkedin message.
+## Citations and Acknowledgements
+This repository can be slightly messy, but hope that you are still able to get
+the script to wor. If you have any questions or feedback, do email me (leowcs AT umich.edu) or drop me a Linkedin message. If this has been useful for your work,
+do cite it and feel free to let me know too! Cheers!
 
 C. S. Leow, W. L. Goh, and Y. Gao, “Sparsity through spiking convolutional neural network for audio classification at the edge,” IEEE
-Int. Symp. Circuits Syst. (ISCAS), 2023, pp. 1‑5.
+Int. Symp. Circuits Syst. (ISCAS), 2023, pp. 1‑5.\
 [Citation will be updated once proceeding becomes available.]
 
+This work is built upon the great works of others, some of them are listed below.
+However, for the full list of references, please do refer to the bibliography
+of the original publication. 
 Other useful works:\
 snnTorch: https://github.com/jeshraghian/snntorch/tree/master \
 Brevitas: https://github.com/Xilinx/brevitas \
