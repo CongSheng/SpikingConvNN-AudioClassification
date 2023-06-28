@@ -160,7 +160,7 @@ C:.
 
 ## Dependencies
 It recommended for this to be run on [docker](https://www.docker.com/) or a 
-[virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Click on the above links to get started. 
+[virtual environment](https://conda.io/projects/conda/en/latest/user-guide/tasks/manage-environments.html). Click on the above links to get started before installing the packages. 
 ```
 connda install pip
 conda install -file requirements.txt
@@ -206,7 +206,7 @@ The scripts can be segmented into numbered scripts and non-numbered scripts.
 Numbered scripts are scripts which were mainly used to better understand the
 functions or logic behind the tools and options available. On the other hand, 
 non-numbered scripts are more stand-alone. Instructions on the arguments are
-written within the `argparse`'s `-help` section. \
+written within the `argparse`'s `-help` section. 
 
 **Numbered Scripts**\
 `i_print_dict.py`: Used to visualize dictionaries, such as the checkpoints.\
@@ -217,7 +217,7 @@ written within the `argparse`'s `-help` section. \
 **Non-numbered Scripts**\
 `automatedSearch`: Validation/Search through neuron parameters using *Tune*.\
 ![Automated Search](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/combined_search.png)
-*Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*
+*Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*\
 `feature_exploration.py`: Used to explore different features on a single audio.\
 `main.py`: Main script to train and evaluate different models at different configurations.\
 `manualSearch.py`: Manually sweep along individual neuron parameters to examine
@@ -225,7 +225,7 @@ the accuracy and sparasity.\
 ![Manual Search for Model A](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Aonly.png)
 *Manual Search for Model A - Varying single parameter while keeping the rest constant.*
 ![Manual Search for Model B](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Bonly.png)
-*Manual Search for Model B - Varying single parameter while keeping the rest constant.*
+*Manual Search for Model B - Varying single parameter while keeping the rest constant.*\
 `scriptRun.py`: Similar to `main.py`, but without `argparse` and requires 
 modification directly on the script.
 
