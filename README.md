@@ -238,12 +238,11 @@ modification directly on the script.
 This work is built upon the great works of others, some of them are listed below.
 However, for the full list of references, please do refer to the bibliography
 of the original publication. Do also cite this work if you think it is helpful
-in your work!\
+in your work! If you have any questions or feedback, do email me (leowcs AT umich.edu) or drop me a Linkedin message.
 
 C. S. Leow, W. L. Goh, and Y. Gao, “Sparsity through spiking convolutional neural network for audio classification at the edge,” IEEE
-Int. Symp. Circuits Syst. (ISCAS), 2023, pp. 1‑5.\
-
-[Citation will be updated once proceeding becomes available.]\
+Int. Symp. Circuits Syst. (ISCAS), 2023, pp. 1‑5.
+[Citation will be updated once proceeding becomes available.]
 
 Other useful works:\
 snnTorch: https://github.com/jeshraghian/snntorch/tree/master \
