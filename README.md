@@ -9,9 +9,9 @@ Abstract: Convolutional neural networks (CNNs) have shown to be effective for au
 ![Model B Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelB.jpg)
 *Fig 2: Model B Network (SCNN) with leaner architecture than model A.*
 ![Training Loss](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/Output%20Plots/accLoss.png)
-*Training loss plot against training epochs for Model B.*
+*Fig 3: Training loss plot against training epochs for Model B.*
 ![Confusion Matrix](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Output%20Plots/ConfusionMatrix.png)
-*Confusion matrix for model B.*
+*Fig 4: Confusion matrix for model B.*
 
 <table>
     <thead>
@@ -217,15 +217,15 @@ written within the `argparse`'s `-help` section.
 **Non-numbered Scripts**\
 `automatedSearch`: Validation/Search through neuron parameters using *Tune*.\
 ![Automated Search](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/combined_search.png)
-*Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*\
+*Fig 5: Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*\
 `feature_exploration.py`: Used to explore different features on a single audio.\
 `main.py`: Main script to train and evaluate different models at different configurations.\
 `manualSearch.py`: Manually sweep along individual neuron parameters to examine
 the accuracy and sparasity.\
 ![Manual Search for Model A](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Aonly.png)
-*Manual Search for Model A - Varying single parameter while keeping the rest constant.*
+*Fig 6: Manual Search for Model A - Varying single parameter while keeping the rest constant.*
 ![Manual Search for Model B](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Bonly.png)
-*Manual Search for Model B - Varying single parameter while keeping the rest constant.*\
+*Fig 7: Manual Search for Model B - Varying single parameter while keeping the rest constant.*\
 `scriptRun.py`: Similar to `main.py`, but without `argparse` and requires 
 modification directly on the script.
 
