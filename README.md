@@ -5,11 +5,71 @@ Published in IEEE International Symposium on Circuits and Systems 2023 (ISCAS 20
 
 Abstract: Convolutional neural networks (CNNs) have shown to be effective for audio classification. However, deep CNNs can be computationally heavy and unsuitable for edge intelligence as embedded devices are generally constrained by memory and energy requirements. Spiking neural networks (SNNs) offer potential as energy-efficient networks but typically underperform typical deep neural networks in accuracy. This paper proposes a spiking convolutional neural network (SCNN) that exhibits excellent accuracy of above 98 % on a multi-class audio classification task. Accuracy remains high with weight quantization to INT8- precision. Additionally, this paper examines the role of neuron pagit rameters in co-optimizing activation sparsity and accuracy.
 ![Model A Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelA.jpg)
-*Model A Network (SCNN).*
+*Fig 1: Model A Network (SCNN) inspired by the original CNN used for FSDD.*
 ![Model B Architecture](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/ModelB.jpg)
-*Model B Network (SCNN).*
+*Fig 2: Model B Network (SCNN) with leaner architecture than model A.*
 ![Training Loss](https://github.com/CongSheng/Research/blob/8e32179f69676ef81428b0c1c8b36818afa801b5/figures/Output%20Plots/accLoss.png)
-*Training loss plot against training epochs.*
+*Training loss plot against training epochs for Model B.*
+![Confusion Matrix](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Output%20Plots/ConfusionMatrix.png)
+*Confusion matrix for model B.*
+
+<table>
+    <thead>
+        <tr>
+            <th>Model</th>
+            <th>Architecture</th>
+            <th>No. of time steps</th>
+            <th>Test Accuracy</th>
+            <th>Quantized Test Accuracy</th>
+            <th>No. of Parameters</th>
+            <th>FLOPS</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: center">Control (CNN)</td>
+            <td style="text-align: center">6C3-P2-16C3-128FC-64FC-10FC</td>
+            <td style="text-align: center">NA</td>
+            <td style="text-align: center">97.3 %</td>
+            <td style="text-align: center">-</td>
+            <td style="text-align: center">0.837 M</td>
+            <td style="text-align: center">3.326M</td>
+        </tr>
+        <tr>
+            <td style="text-align: center" rowspan=2>A</td>
+            <td style="text-align: center" rowspan=2>6C3-16C3-128FC-64FC-10FC</td>
+            <td style="text-align: center">10</td>
+            <td style="text-align: center">98.7 &#xB1; 0.57 %</td>
+            <td style="text-align: center">74.1 &#xB1; 9.22 %</td>
+            <td style="text-align: center" rowspan=2>1.616 M</td>
+            <td style="text-align: center">281.000 M</td>
+        </tr>
+        <tr>
+            <td style="text-align: center">1</td>
+            <td style="text-align: center">95.4 &#xB1; 3.24 %</td>
+            <td style="text-align: center">61.6 &#xB1; 12.30 %</td>
+            <td style="text-align: center">28.085 M</td>
+        </tr>
+        <tr>
+            <td style="text-align: center" rowspan=2> B</td>
+            <td style="text-align: center" rowspan=2>6C3-128FC-10FC</td>
+            <td style="text-align: center">10</td>
+            <td style="text-align: center">98.4 &#xB1; 0.35 %</td>
+            <td style="text-align: center">97.0 &#xB1; 0.77 %</td>
+            <td style="text-align: center" rowspan=2>0.702 M</td>
+            <td style="text-align: center">88.930 M</td>
+        </tr>
+        <tr>
+            <td style="text-align: center">1</td>
+            <td style="text-align: center">93.1 &#xB1; 0.77 %</td>
+            <td style="text-align: center">91.3 &#xB1; 2.40 %</td>
+            <td style="text-align: center">8.893 M </td>
+        </tr>
+    </tbody>
+</table>
+*Table showing the results for the model. Benchmark table available in original 
+paper.*
+
 ##  Table of Content
 1. [Structure](#Structure)
 2. [Installation](#Installation)
@@ -158,24 +218,32 @@ written within the `argparse`'s `-help` section. \
 
 **Non-numbered Scripts**\
 `automatedSearch`: Validation/Search through neuron parameters using *Tune*.
+![Automated Search](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/combined_search.png)
+*Random and Bayesian search for highest accuracy across neuron parameters for both Model A and Model B: Beta, No. of time steps, and Threshold voltage.*
 `feature_exploration.py`: Used to explore different features on a single audio.\
 `main.py`: Main script to train and evaluate different models at different configurations.\
 `manualSearch.py`: Manually sweep along individual neuron parameters to examine
 the accuracy and sparasity.\
+![Manual Search for Model A](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Aonly.png)
+*Manual Search for Model A - Varying single parameter while keeping the rest constant.*
+![Manual Search for Model B](https://github.com/CongSheng/Research/blob/a319623006914158a6865fbc23d4aa5f2301cbe0/figures/Search/HyperStudy%20Subplot%20Bonly.png)
+*Manual Search for Model B - Varying single parameter while keeping the rest constant.*
 `scriptRun.py`: Similar to `main.py`, but without `argparse` and requires 
 modification directly on the script.
 
 ## Future Works
-TODO
+1. Implemention and test of hardware implementation.
+2. Multi-objective optimization (Accuracy, sparsity and hardware resources).
+3. Online optimization.
 
 ## Acknowledgements
 This work is built upon the great works of others, some of them are listed below.
 However, for the full list of references, please do refer to the bibliography
 of the original publication. Do also cite this work if you think it is helpful
-in your work!\
+in your work!
 
 Other useful works:\
 snnTorch: https://github.com/jeshraghian/snntorch/tree/master \
 Brevitas: https://github.com/Xilinx/brevitas \
 Flop Counter: https://github.com/facebookresearch/fvcore/blob/main/docs/flop_count.md \
-Ray (Tune): https://github.com/ray-project/ray \
+Ray (Tune): https://github.com/ray-project/ray
